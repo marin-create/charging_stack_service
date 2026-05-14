@@ -1,0 +1,946 @@
+<meta charset="utf-8">
+<title>Charging Stack — Services Page Wireframe</title>
+<style>
+  /* ============================================================
+     CHARGING STACK · SERVICES LANDING PAGE — GREY-BOX WIREFRAME
+     Intentionally low-fidelity: greyscale + one interactive accent.
+     This communicates structure, copy, and layout — not visual design.
+     ============================================================ */
+
+  :root {
+    --paper:        #e4e4e1;   /* page gutter / drafting-paper bg   */
+    --band-light:   #f3f3f1;   /* light section band               */
+    --band-dark:    #292a2c;   /* dark section band                */
+    --card-light:   #ffffff;
+    --card-dark:    #323336;
+    --ph-light:     #dadad6;   /* placeholder fill on light        */
+    --line:         #c2c2bd;
+    --line-strong:  #9a9a95;
+    --line-dark:    #45464a;
+    --ink:          #1c1c1a;
+    --ink-mute:     #6e6e69;
+    --ink-on-dark:  #d6d6d3;
+    --mute-on-dark: #87878a;
+    --accent:       #3f6d8e;   /* WIREFRAME ACCENT = interactive   */
+    --accent-deep:  #335a76;
+    --mono: 'SF Mono','JetBrains Mono','Fira Code',ui-monospace,Menlo,Consolas,monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 124px; }
+
+  body {
+    font-family: var(--mono);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- shared layout ---- */
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 32px; }
+
+  .band { padding: 64px 0; border-bottom: 1px solid var(--line-strong); }
+  .band-light { background: var(--band-light); }
+  .band-dark  { background: var(--band-dark); color: var(--ink-on-dark); }
+
+  /* ---- section meta label (the "spec" annotation on every band) ---- */
+  .smeta {
+    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    padding-bottom: 22px; margin-bottom: 32px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .band-dark .smeta { border-bottom-color: var(--line-dark); }
+  .smeta-num  { color: var(--accent); font-weight: 700; }
+  .smeta-name { font-weight: 700; }
+  .band-dark .smeta-name { color: #fff; }
+  .smeta-band { margin-left: auto; color: var(--ink-mute); }
+  .band-dark .smeta-band { color: var(--mute-on-dark); }
+
+  /* ---- type ---- */
+  h1, h2 { font-weight: 700; letter-spacing: -0.01em; line-height: 1.18; }
+  h1 { font-size: clamp(28px, 4.4vw, 46px); }
+  h2 { font-size: clamp(22px, 3vw, 32px); }
+  .eyebrow {
+    display: inline-block; font-size: 11px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--accent);
+    border: 1px solid var(--accent); padding: 5px 10px; margin-bottom: 20px;
+  }
+  p.lede { font-size: 15px; max-width: 60ch; color: var(--ink-mute); }
+  .band-dark p.lede { color: var(--mute-on-dark); }
+  .support { font-size: 13px; color: var(--ink-mute); margin-top: 14px; }
+  .band-dark .support { color: var(--mute-on-dark); }
+
+  /* ---- buttons (interactive = accent) ---- */
+  .btn {
+    display: inline-block; font-family: var(--mono); font-size: 13px;
+    letter-spacing: .04em; padding: 12px 20px; cursor: pointer;
+    border: 1.5px solid var(--accent); background: var(--accent); color: #fff;
+    text-decoration: none; transition: background .15s, transform .05s;
+  }
+  .btn:hover { background: var(--accent-deep); }
+  .btn:active { transform: translateY(1px); }
+  .btn.ghost { background: transparent; color: var(--accent); }
+  .band-dark .btn.ghost { color: #cfe0ec; border-color: #cfe0ec; }
+  .band-dark .btn.ghost:hover { background: rgba(255,255,255,.08); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+
+  /* ---- placeholder boxes ---- */
+  .ph {
+    background-color: var(--ph-light);
+    background-image: repeating-linear-gradient(45deg,
+      transparent, transparent 7px, rgba(0,0,0,.05) 7px, rgba(0,0,0,.05) 8px);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-mute); font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; border: 1px solid var(--line);
+  }
+  .ph-dark {
+    background-color: #3a3b3e;
+    background-image: repeating-linear-gradient(45deg,
+      transparent, transparent 7px, rgba(255,255,255,.05) 7px, rgba(255,255,255,.05) 8px);
+    color: var(--mute-on-dark); border-color: var(--line-dark);
+  }
+
+  /* ---- generic card ---- */
+  .card {
+    border: 1px solid var(--line); background: var(--card-light);
+    padding: 22px; 
+  }
+  .band-dark .card { border-color: var(--line-dark); background: var(--card-dark); }
+  .card-num {
+    font-size: 13px; font-weight: 700; color: var(--accent);
+    letter-spacing: .1em; margin-bottom: 10px;
+  }
+  .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+  .card p { font-size: 12.5px; color: var(--ink-mute); }
+  .band-dark .card p { color: var(--mute-on-dark); }
+  .micro {
+    font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink); font-weight: 700; margin-top: 12px;
+  }
+  .band-dark .micro { color: #fff; }
+
+  /* ---- grids ---- */
+  .grid { display: grid; gap: 18px; margin-top: 32px; }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ---- designer NOTE callout ---- */
+  .note {
+    margin-top: 30px; border: 1px dashed var(--accent);
+    padding: 12px 16px; font-size: 11.5px; color: var(--accent-deep);
+    background: rgba(63,109,142,.06); letter-spacing: .01em;
+  }
+  .band-dark .note { color: #bcd4e2; background: rgba(63,109,142,.16); }
+  .note b { letter-spacing: .1em; }
+
+  /* ============== TOP UTILITY STRIP ============== */
+  .util {
+    background: var(--accent); color: #fff; font-size: 10.5px;
+    letter-spacing: .16em; text-transform: uppercase; text-align: center;
+    padding: 7px 16px;
+  }
+
+  /* ============== NAV (wireframe of the real CS nav) ============== */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--band-dark); border-bottom: 1px solid var(--line-dark);
+  }
+  .nav-bar {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 32px; max-width: 1060px; margin: 0 auto;
+  }
+  .nav-burger {
+    width: 30px; height: 22px; border: 1px solid var(--line-dark);
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 3px; padding: 0 5px; cursor: pointer;
+  }
+  .nav-burger span { height: 1.5px; background: var(--ink-on-dark); }
+  .nav-logo {
+    margin: 0 auto; display: flex; align-items: center; gap: 8px;
+    color: #fff; font-weight: 700; font-size: 14px; letter-spacing: .02em;
+  }
+  .logo-mark {
+    width: 24px; height: 24px; border: 1px solid var(--accent);
+    color: var(--accent); display: flex; align-items: center;
+    justify-content: center; font-size: 13px;
+  }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-search {
+    width: 26px; height: 26px; border: 1px solid var(--line-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--mute-on-dark);
+  }
+  .nav-sub {
+    border: 1px solid var(--line-dark); color: var(--ink-on-dark);
+    font-size: 11px; padding: 6px 12px; letter-spacing: .08em;
+  }
+  .nav-items {
+    display: flex; flex-wrap: wrap; gap: 4px 22px; justify-content: center;
+    padding: 0 32px 12px; max-width: 1060px; margin: 0 auto;
+    font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .nav-items a { color: var(--mute-on-dark); text-decoration: none; padding-bottom: 4px; }
+  .nav-items a:hover { color: var(--ink-on-dark); }
+  .nav-items a.active {
+    color: #fff; border-bottom: 2px solid var(--accent); font-weight: 700;
+  }
+
+  /* ============== SECTION RAIL (clickable index) ============== */
+  .rail {
+    position: fixed; right: 14px; top: 50%; transform: translateY(-50%);
+    z-index: 40; display: flex; flex-direction: column; gap: 2px;
+  }
+  .rail a {
+    display: flex; align-items: center; gap: 8px; justify-content: flex-end;
+    text-decoration: none; font-size: 9.5px; letter-spacing: .1em;
+    color: var(--ink-mute); padding: 3px 0;
+  }
+  .rail .rdot {
+    width: 22px; text-align: center; padding: 3px 0;
+    border: 1px solid var(--line-strong); background: var(--paper);
+    font-weight: 700; color: var(--ink-mute);
+  }
+  .rail .rlabel {
+    opacity: 0; transition: opacity .15s; text-transform: uppercase;
+    background: var(--ink); color: #fff; padding: 3px 7px; white-space: nowrap;
+  }
+  .rail a:hover .rlabel { opacity: 1; }
+  .rail a:hover .rdot { border-color: var(--accent); color: var(--accent); }
+  .rail a.active .rdot { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ============== SECTION-SPECIFIC ============== */
+
+  /* bridge / flow steps */
+  .flow { display: flex; align-items: stretch; gap: 0; margin-top: 32px; }
+  .flow .card { flex: 1; }
+  .flow .arrow {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 14px; color: var(--accent); font-size: 20px; font-weight: 700;
+  }
+
+  /* positioning strip (Why CS) */
+  .pstrip {
+    margin-top: 28px; border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line); padding: 18px 0;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px;
+  }
+  .pstrip .big { font-size: 30px; font-weight: 700; }
+  .pstrip .ptext { font-size: 12.5px; color: var(--ink-mute); max-width: 46ch; }
+
+  /* core problem symptom list */
+  .symptoms {
+    margin-top: 30px; columns: 2; column-gap: 40px;
+    font-size: 13px; color: var(--mute-on-dark);
+  }
+  .symptoms div {
+    padding: 9px 0; border-bottom: 1px solid var(--line-dark);
+    break-inside: avoid;
+  }
+  .symptoms div::before { content: "— "; color: var(--accent); }
+  .closing-line { margin-top: 26px; font-size: 16px; font-weight: 700; color: #fff; }
+
+  /* services cards */
+  .svc .card { display: flex; flex-direction: column; }
+  .svc .pkg {
+    margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line);
+    font-size: 12px; color: var(--accent); font-weight: 700;
+  }
+
+  /* proof client cards */
+  .client {
+    background: var(--card-light); color: var(--ink);
+    border: 1px solid var(--line); padding: 22px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .client-head { display: flex; align-items: center; gap: 14px; }
+  .client-logo { width: 54px; height: 54px; flex: none; }
+  .client h3 { font-size: 17px; font-weight: 700; }
+  .client p { font-size: 12.5px; color: var(--ink-mute); }
+  .client .micro { color: var(--ink); }
+  .tag {
+    align-self: flex-start; font-size: 10px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent);
+    border: 1px solid var(--accent); padding: 4px 9px;
+  }
+
+  /* gap cards (quiet, text-led) */
+  .gap-card { border: 1px solid var(--line-dark); padding: 20px; }
+  .gap-card .q { font-size: 14px; font-weight: 700; color: #fff; }
+  .gap-card .a { font-size: 12.5px; color: var(--accent); margin-top: 8px; }
+  .gap-card .a::before { content: "→ "; }
+
+  /* process steps */
+  .steps { margin-top: 32px; }
+  .step {
+    display: flex; gap: 22px; padding: 20px 0;
+    border-top: 1px solid var(--line-dark);
+  }
+  .step:last-child { border-bottom: 1px solid var(--line-dark); }
+  .step-n {
+    font-size: 22px; font-weight: 700; color: var(--accent);
+    flex: none; width: 46px;
+  }
+  .step h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+  .step p { font-size: 12.5px; color: var(--mute-on-dark); }
+
+  /* packages */
+  .pkg-card { display: flex; flex-direction: column; }
+  .pkg-name { font-size: 15px; font-weight: 700; }
+  .pkg-price {
+    margin: 10px 0; padding-bottom: 10px; border-bottom: 1px solid var(--line);
+    font-size: 18px; font-weight: 700;
+  }
+  .pkg-price .ph-price {
+    background: var(--ph-light); padding: 1px 6px; color: var(--ink-mute);
+    border: 1px dashed var(--line-strong); font-size: 15px;
+  }
+  .pkg-for { font-size: 12px; color: var(--ink-mute); }
+  .pkg-list { list-style: none; margin: 12px 0 16px; font-size: 12px; }
+  .pkg-list li { padding: 3px 0; color: var(--ink-mute); }
+  .pkg-list li::before { content: "• "; color: var(--accent); }
+  .pkg-card .btn { margin-top: auto; text-align: center; }
+  .pkg-wide {
+    grid-column: 1 / -1; display: flex; flex-wrap: wrap;
+    align-items: center; gap: 18px 30px;
+  }
+  .pkg-wide .pkg-wide-main { flex: 1; min-width: 260px; }
+  .pkg-wide .pkg-price { border-bottom: none; padding-bottom: 0; margin: 6px 0; }
+
+  /* FAQ accordion */
+  .faq { margin-top: 30px; }
+  .faq-item { border-top: 1px solid var(--line-dark); }
+  .faq-item:last-child { border-bottom: 1px solid var(--line-dark); }
+  .faq-q {
+    width: 100%; text-align: left; background: none; border: none;
+    font-family: var(--mono); font-size: 13.5px; color: var(--ink-on-dark);
+    padding: 16px 0; cursor: pointer; display: flex; gap: 14px;
+    align-items: center; justify-content: space-between;
+  }
+  .faq-q:hover { color: #fff; }
+  .faq-sign { color: var(--accent); font-size: 17px; flex: none; }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height .25s ease;
+    font-size: 12.5px; color: var(--mute-on-dark);
+  }
+  .faq-a p { padding: 0 0 18px; max-width: 64ch; }
+  .faq-item.open .faq-a { max-height: 220px; }
+  .faq-item.open .faq-sign { color: #fff; }
+
+  /* final CTA */
+  .final { text-align: center; }
+  .final .wrap { max-width: 680px; }
+  .final p.lede { margin: 18px auto 0; }
+  .final .btn-row { justify-content: center; }
+
+  /* footer */
+  .foot { background: var(--band-dark); color: var(--ink-on-dark); padding: 0 0 40px; }
+  .foot-sub {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 18px;
+    justify-content: space-between; padding: 36px 0;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .foot-sub h3 { font-size: 16px; color: #fff; }
+  .foot-form { display: flex; gap: 0; }
+  .foot-input {
+    width: 240px; height: 38px; background: #fff; border: 1px solid var(--line);
+  }
+  .foot-cols {
+    display: grid; grid-template-columns: repeat(3,1fr) auto; gap: 24px;
+    padding: 32px 0; font-size: 12px;
+  }
+  .foot-cols h4 {
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: #fff; margin-bottom: 12px;
+  }
+  .foot-cols a { display: block; color: var(--mute-on-dark); text-decoration: none; padding: 3px 0; }
+  .foot-cols a.added { color: var(--accent); }
+  .foot-social { display: flex; gap: 8px; }
+  .foot-social div {
+    width: 26px; height: 26px; border: 1px solid var(--line-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: var(--mute-on-dark);
+  }
+  .foot-base {
+    display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between;
+    padding-top: 24px; border-top: 1px solid var(--line-dark);
+    font-size: 11px; color: var(--mute-on-dark);
+  }
+
+  /* ---- responsive ---- */
+  @media (max-width: 880px) {
+    .rail { display: none; }
+    .g2, .g3, .g4 { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow .arrow { padding: 8px 0; transform: rotate(90deg); }
+    .symptoms { columns: 1; }
+    .pkg-wide { flex-direction: column; align-items: flex-start; }
+    html { scroll-padding-top: 150px; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 18px; }
+    .nav-bar { padding: 12px 18px; }
+    .nav-items { padding: 0 18px 12px; }
+  }
+</style>
+
+<!-- ============ TOP UTILITY STRIP ============ -->
+<div class="util">Wireframe · Charging Stack services page · grey-box layout — not final visual design</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav-bar">
+    <div class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="nav-logo"><span class="logo-mark">⚡</span> Charging Stack</div>
+    <div class="nav-right">
+      <div class="nav-search">⌕</div>
+      <div class="nav-sub">Subscribe</div>
+    </div>
+  </div>
+  <nav class="nav-items">
+    <a href="#">Home</a>
+    <a href="#">Electric Vehicles</a>
+    <a href="#">Tech</a>
+    <a href="#">Micromobility</a>
+    <a href="#">Urban Mobility</a>
+    <a href="#">About</a>
+    <a href="#s1" class="active">Services</a>
+    <a href="#">Contact</a>
+    <a href="#">Startup Watch</a>
+  </nav>
+</header>
+
+<!-- ============ SECTION RAIL ============ -->
+<nav class="rail" aria-label="Section index">
+  <a href="#s1"><span class="rlabel">Hero</span><span class="rdot">01</span></a>
+  <a href="#s2"><span class="rlabel">Bridge</span><span class="rdot">02</span></a>
+  <a href="#s3"><span class="rlabel">Why CS</span><span class="rdot">03</span></a>
+  <a href="#s4"><span class="rlabel">Problem</span><span class="rdot">04</span></a>
+  <a href="#s5"><span class="rlabel">Services</span><span class="rdot">05</span></a>
+  <a href="#s6"><span class="rlabel">Proof</span><span class="rdot">06</span></a>
+  <a href="#s7"><span class="rlabel">Right gap</span><span class="rdot">07</span></a>
+  <a href="#s8"><span class="rlabel">Use cases</span><span class="rdot">08</span></a>
+  <a href="#s9"><span class="rlabel">Process</span><span class="rdot">09</span></a>
+  <a href="#s10"><span class="rlabel">Packages</span><span class="rdot">10</span></a>
+  <a href="#s11"><span class="rlabel">FAQ</span><span class="rdot">11</span></a>
+  <a href="#s12"><span class="rlabel">Final CTA</span><span class="rdot">12</span></a>
+</nav>
+
+<!-- ============ 01 · HERO ============ -->
+<section id="s1" class="band band-dark">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 01</span><span class="smeta-name">Hero</span>
+      <span class="smeta-band">Band — Dark · left-aligned</span>
+    </div>
+    <span class="eyebrow">Charging Stack Services</span>
+    <h1>Built for mobility companies<br>that need more than visibility</h1>
+    <p class="lede" style="margin-top:22px;">
+      Charging Stack helps mobility companies explain their story, sharpen their
+      digital presence, and turn industry attention into trust, leads, and
+      commercial momentum.
+    </p>
+    <p class="support">We are not generalists trying to learn your market. We already work inside it.</p>
+    <div class="btn-row">
+      <a href="#s12" class="btn">Book a strategy call</a>
+      <a href="#s5" class="btn ghost">See what we do</a>
+    </div>
+    <div class="note"><b>NOTE</b> — Optional understated hero image (single editorial mobility photo, dark overlay). Omitted in wireframe; text stays dominant.</div>
+  </div>
+</section>
+
+<!-- ============ 02 · BRIDGE ============ -->
+<section id="s2" class="band band-dark">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 02</span><span class="smeta-name">Podcast → premium bridge</span>
+      <span class="smeta-band">Band — Dark</span>
+    </div>
+    <h2>The podcast is the starting point.<br>The real opportunity comes after.</h2>
+    <p class="lede" style="margin-top:18px;">
+      When we feature a company on Charging Stack, we create visibility, credibility,
+      and useful industry context. But attention alone doesn't close deals or make a
+      company easier to buy from. That's where our services come in.
+    </p>
+    <div class="flow">
+      <div class="card">
+        <div class="card-num">01</div>
+        <h3>Podcast visibility</h3>
+        <p>Founder story, industry trust, and attention from a niche, high-intent audience — builders, operators, investors.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <h3>Commercial clarity</h3>
+        <p>Clearer message, sharper positioning, better assets.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <h3>Growth system</h3>
+        <p>Website, content, campaigns, lead capture, partner trust.</p>
+      </div>
+    </div>
+    <div class="note"><b>LAYOUT</b> — Reuse the numbered "01/02/03" block pattern from the Startup Watch page. Cards read as a sequence, not three separate features.</div>
+  </div>
+</section>
+
+<!-- ============ 03 · WHY CHARGING STACK ============ -->
+<section id="s3" class="band band-light">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 03</span><span class="smeta-name">Why Charging Stack</span>
+      <span class="smeta-band">Band — Light</span>
+    </div>
+    <h2>We already understand the market<br>you are trying to win</h2>
+    <p class="lede" style="margin-top:18px;">
+      Most agencies need time to understand your product, your buyer, your category,
+      and the language of the mobility industry. We don't start from zero. Charging
+      Stack spends every week speaking with founders, researching companies, and
+      publishing mobility stories across EVs, micromobility, infrastructure, software,
+      fleets, and urban transport.
+    </p>
+    <div class="pstrip">
+      <span class="big">100+</span>
+      <span class="ptext">
+        <b>companies and cities featured.</b> A niche, high-intent audience —
+        builders, operators, industry insiders, and investors. Not broad consumer
+        reach; the right readers.
+      </span>
+    </div>
+    <div class="grid g4">
+      <div class="card">
+        <h3>Mobility-native thinking</h3>
+        <p>EVs, micromobility, charging, fleets, infrastructure, transport software, and urban mobility.</p>
+      </div>
+      <div class="card">
+        <h3>Founder access</h3>
+        <p>Direct contact with mobility founders and operators — through articles, interviews, podcast episodes, and ongoing conversations.</p>
+      </div>
+      <div class="card">
+        <h3>Media plus execution</h3>
+        <p>We don't only tell stories — we help build the assets behind them.</p>
+      </div>
+      <div class="card">
+        <h3>Built with PROTOTYP</h3>
+        <p>Strategy, design, development, branding, growth, and automation capability behind the scenes.</p>
+      </div>
+    </div>
+    <div class="note"><b>NOTE</b> — "100+ companies and cities featured" is already public on the About page; safe to use. PROTOTYP appears as a proof point only, not a co-brand.</div>
+  </div>
+</section>
+
+<!-- ============ 04 · CORE PROBLEM ============ -->
+<section id="s4" class="band band-dark">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 04</span><span class="smeta-name">The core problem</span>
+      <span class="smeta-band">Band — Dark · tighter, sober</span>
+    </div>
+    <h2>Most mobility companies have a visibility<br>problem and a clarity problem</h2>
+    <p class="lede" style="margin-top:18px;">
+      A lot of mobility companies are building serious products, but the outside world
+      doesn't always see the full picture. So even when attention arrives, it often leaks.
+    </p>
+    <div class="symptoms">
+      <div>Strong product, weak story</div>
+      <div>Good interview, no follow-up content system</div>
+      <div>Technical value, unclear market message</div>
+      <div>Website that undersells the company</div>
+      <div>Attention without lead capture</div>
+      <div>Brand that feels behind the product</div>
+      <div>Founder doing too much explaining manually</div>
+    </div>
+    <p class="closing-line">We help fix that.</p>
+  </div>
+</section>
+
+<!-- ============ 05 · SERVICES ============ -->
+<section id="s5" class="band band-light">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 05</span><span class="smeta-name">Services / four bundles</span>
+      <span class="smeta-band">Band — Light · densest section</span>
+    </div>
+    <h2>How we help mobility companies grow<br>from attention to trust</h2>
+    <div class="grid g2 svc">
+      <div class="card">
+        <div class="card-num">01 — Founder-led content</div>
+        <p>Studio recordings, simulated podcast sessions, short-form clips, LinkedIn ghostwriting, and company-page content.</p>
+        <div class="micro">Best for</div>
+        <p>Founders who need to explain the company clearly and show up consistently with strong ideas.</p>
+        <div class="micro">Outcome</div>
+        <p>Your founder becomes easier to understand, more visible, and more credible.</p>
+        <div class="pkg">→ Founder Content Sprint</div>
+      </div>
+      <div class="card">
+        <div class="card-num">02 — Websites & product experiences</div>
+        <p>Launch sites, landing pages, product pages, configurators, UX/UI systems, and full site builds.</p>
+        <div class="micro">Best for</div>
+        <p>Companies whose product is stronger than their current digital presence.</p>
+        <div class="micro">Outcome</div>
+        <p>Your website stops acting like a brochure and starts helping people act.</p>
+        <div class="pkg">→ Digital Credibility Sprint</div>
+      </div>
+      <div class="card">
+        <div class="card-num">03 — Brand & positioning</div>
+        <p>Positioning, messaging, visual identity, pitch support, and credibility assets.</p>
+        <div class="micro">Best for</div>
+        <p>Startups that need to look more mature, focused, and investable.</p>
+        <div class="micro">Outcome</div>
+        <p>Your company feels more serious, more focused, and easier to explain.</p>
+        <div class="pkg">→ Brand Clarity Sprint</div>
+      </div>
+      <div class="card">
+        <div class="card-num">04 — Growth & demand capture</div>
+        <p>Campaigns, lead capture, paid media, SEO, conversion flows, and CRM.</p>
+        <div class="micro">Best for</div>
+        <p>Companies with attention that need to turn it into leads, demos, and pilots.</p>
+        <div class="micro">Outcome</div>
+        <p>Attention becomes structured demand, not scattered traffic.</p>
+        <div class="pkg">→ Growth System Sprint</div>
+      </div>
+    </div>
+    <div class="note"><b>LAYOUT</b> — All four cards use the identical internal structure (number/name → description → Best for → Outcome → package) so they read as a set. Protect with generous internal padding.</div>
+  </div>
+</section>
+
+<!-- ============ 06 · PROOF ============ -->
+<section id="s6" class="band band-dark">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 06</span><span class="smeta-name">Proof — clients through Charging Stack</span>
+      <span class="smeta-band">Band — Dark · bright white cards</span>
+    </div>
+    <h2>Companies that came to us through Charging Stack</h2>
+    <p class="lede" style="margin-top:18px;">
+      This isn't a new idea. Mobility companies we've covered and connected with
+      through Charging Stack are already working with us on exactly this — content,
+      websites, and the assets behind their growth.
+    </p>
+    <div class="grid g2">
+      <div class="client">
+        <div class="client-head">
+          <div class="ph client-logo">Logo</div>
+          <h3>ÆMOTION</h3>
+        </div>
+        <p>Ultra-narrow tilting electric microcars built for dense urban mobility.</p>
+        <div class="micro">What we're doing</div>
+        <p>Designing and building their new website.</p>
+        <span class="tag">▸ Connected through Charging Stack</span>
+      </div>
+      <div class="client">
+        <div class="client-head">
+          <div class="ph client-logo">Logo</div>
+          <h3>UbiRider</h3>
+        </div>
+        <p>A digital platform integrating transport management, real-time data, and contactless payments.</p>
+        <div class="micro">What we did</div>
+        <p>Video editing and content production.</p>
+        <span class="tag">▸ Connected through Charging Stack</span>
+      </div>
+    </div>
+    <div class="note"><b>STATUS</b> — Cards are placeholders. Gated on written approval from ÆMOTION and UbiRider before they appear publicly. Section can launch with one approved card if needed. Grid is built to take more cards as the client list grows.</div>
+  </div>
+</section>
+
+<!-- ============ 07 · START WITH THE RIGHT GAP ============ -->
+<section id="s7" class="band band-dark">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 07</span><span class="smeta-name">Start with the right gap</span>
+      <span class="smeta-band">Band — Dark · lighter-weight, text-led</span>
+    </div>
+    <h2>Start with the gap that matters most</h2>
+    <p class="lede" style="margin-top:18px;">
+      You don't need everything at once. We help you identify the right starting
+      point, then build from there.
+    </p>
+    <div class="grid g2">
+      <div class="gap-card">
+        <div class="q">Need to explain the company better?</div>
+        <div class="a">Start with founder content</div>
+      </div>
+      <div class="gap-card">
+        <div class="q">Need to look more credible?</div>
+        <div class="a">Start with branding or website</div>
+      </div>
+      <div class="gap-card">
+        <div class="q">Need to convert more interest?</div>
+        <div class="a">Start with growth and demand capture</div>
+      </div>
+      <div class="gap-card">
+        <div class="q">Need a complete commercial layer?</div>
+        <div class="a">Combine content, website, brand and growth</div>
+      </div>
+    </div>
+    <div class="note"><b>LAYOUT</b> — Deliberately quieter than §06 so two dark bands don't blur. Answer lines deep-link to the matching bundle in §05.</div>
+  </div>
+</section>
+
+<!-- ============ 08 · USE CASES ============ -->
+<section id="s8" class="band band-light">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 08</span><span class="smeta-name">Use cases</span>
+      <span class="smeta-band">Band — Light</span>
+    </div>
+    <h2>When this makes sense</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>You just recorded with Charging Stack</h3>
+        <p>Turn the interview into a full content system — LinkedIn posts, clips, and sales-support assets.</p>
+      </div>
+      <div class="card">
+        <h3>You're preparing for fundraising</h3>
+        <p>Sharpen the story, website, deck, and founder presence before investor conversations.</p>
+      </div>
+      <div class="card">
+        <h3>You're entering a new market</h3>
+        <p>Create localized messaging, campaigns, landing pages, and partner-facing assets.</p>
+      </div>
+      <div class="card">
+        <h3>You have attention, but no system</h3>
+        <p>Build lead capture, CRM flows, content, and campaigns around the interest you're already getting.</p>
+      </div>
+    </div>
+    <div class="note"><b>NOTE</b> — Use case 1 leads on purpose: it speaks to the warmest audience (recent podcast guests).</div>
+  </div>
+</section>
+
+<!-- ============ 09 · HOW IT WORKS ============ -->
+<section id="s9" class="band band-dark">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 09</span><span class="smeta-name">How it works</span>
+      <span class="smeta-band">Band — Dark · airy</span>
+    </div>
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div><h3>We identify the gap</h3>
+        <p>We look at your current content, website, brand, and growth setup.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div><h3>We recommend the right starting point</h3>
+        <p>Founder content, website, branding, growth, or a combined package.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div><h3>We scope the work</h3>
+        <p>You get a clear plan, timeline, deliverables, and responsibilities.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div><h3>We produce and build</h3>
+        <p>We create the assets, content, pages, systems, or campaigns.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">05</div>
+        <div><h3>We review and improve</h3>
+        <p>We track what works and suggest the next move.</p></div>
+      </div>
+    </div>
+    <div class="btn-row"><a href="#s12" class="btn">Book a strategy call</a></div>
+  </div>
+</section>
+
+<!-- ============ 10 · EXAMPLE PACKAGES + PRICING ============ -->
+<section id="s10" class="band band-light">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 10</span><span class="smeta-name">Example packages + pricing</span>
+      <span class="smeta-band">Band — Light</span>
+    </div>
+    <h2>Example starting packages</h2>
+    <p class="lede" style="margin-top:16px;">
+      Clear starting points with clear pricing. Most companies begin with one —
+      we scope the exact deliverables on a call.
+    </p>
+    <div class="grid g3">
+      <div class="card pkg-card">
+        <div class="pkg-name">Founder Content Sprint</div>
+        <div class="pkg-price">from <span class="ph-price">€X,XXX</span></div>
+        <div class="pkg-for">For visibility and clearer market authority.</div>
+        <ul class="pkg-list">
+          <li>simulated podcast</li><li>clips</li><li>LinkedIn posts</li>
+          <li>company-page posts</li><li>content plan</li>
+        </ul>
+        <a href="#s12" class="btn ghost">Scope this package</a>
+      </div>
+      <div class="card pkg-card">
+        <div class="pkg-name">Digital Credibility Sprint</div>
+        <div class="pkg-price">from <span class="ph-price">€X,XXX</span></div>
+        <div class="pkg-for">For companies whose site or brand undersells the product.</div>
+        <ul class="pkg-list">
+          <li>positioning</li><li>messaging</li><li>website structure</li>
+          <li>UX/UI</li><li>credibility assets</li>
+        </ul>
+        <a href="#s12" class="btn ghost">Scope this package</a>
+      </div>
+      <div class="card pkg-card">
+        <div class="pkg-name">Growth System Sprint</div>
+        <div class="pkg-price">from <span class="ph-price">€X,XXX</span></div>
+        <div class="pkg-for">For traffic or press interest with weak conversion.</div>
+        <ul class="pkg-list">
+          <li>landing pages</li><li>lead capture</li><li>campaigns</li>
+          <li>CRM setup</li><li>reporting</li>
+        </ul>
+        <a href="#s12" class="btn ghost">Scope this package</a>
+      </div>
+      <div class="card pkg-card pkg-wide">
+        <div class="pkg-wide-main">
+          <div class="pkg-name">Full Commercial Presence</div>
+          <div class="pkg-price">from <span class="ph-price">€XX,XXX</span></div>
+          <div class="pkg-for">For companies preparing for fundraising, launch, expansion, or partner outreach.</div>
+          <ul class="pkg-list" style="margin-bottom:0;">
+            <li>founder content</li><li>website</li><li>branding</li><li>growth setup</li>
+          </ul>
+        </div>
+        <a href="#s12" class="btn">Book a strategy call</a>
+      </div>
+    </div>
+    <p class="support" style="margin-top:20px;">Custom scope? Every package can be tailored — start a call.</p>
+    <div class="note"><b>NOTE</b> — "from €X,XXX" values are placeholders. Real pricing figures + currency decision required before hi-fi design. Recommend "from €…" entry prices, not fixed quotes.</div>
+  </div>
+</section>
+
+<!-- ============ 11 · FAQ ============ -->
+<section id="s11" class="band band-dark">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 11</span><span class="smeta-name">FAQ</span>
+      <span class="smeta-band">Band — Dark · accordion · click to expand</span>
+    </div>
+    <h2>Questions founders usually ask</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q"><span>Is this only for companies featured on Charging Stack?</span><span class="faq-sign">+</span></button>
+        <div class="faq-a"><p>No. But if we've already covered your company, we have a stronger starting point.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Are you a media platform or an agency?</span><span class="faq-sign">+</span></button>
+        <div class="faq-a"><p>Charging Stack is the media platform. PROTOTYP gives us the strategy, design, development, and growth execution behind the work.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Do we need all services?</span><span class="faq-sign">+</span></button>
+        <div class="faq-a"><p>No. Most companies start with one clear gap.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Can you help if our product is technical?</span><span class="faq-sign">+</span></button>
+        <div class="faq-a"><p>Yes — that's often where we're most useful. We turn technical value into clear, market-facing content and assets.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Do you handle implementation too?</span><span class="faq-sign">+</span></button>
+        <div class="faq-a"><p>Yes. Depending on scope, we support content, design, development, growth, automation, and campaign execution.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Is this only for EV companies?</span><span class="faq-sign">+</span></button>
+        <div class="faq-a"><p>No. The focus is broader mobility: EVs, micromobility, charging, fleets, infrastructure, transport software, and urban mobility.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Can we start with content only?</span><span class="faq-sign">+</span></button>
+        <div class="faq-a"><p>Yes. Founder-led content is often the best first step after a podcast or interview.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Can you help after the podcast is already published?</span><span class="faq-sign">+</span></button>
+        <div class="faq-a"><p>Yes. The interview can become clips, LinkedIn posts, landing page copy, investor-facing content, and campaign ideas.</p></div>
+      </div>
+    </div>
+    <div class="note"><b>LAYOUT</b> — Order matters: lead with the two identity questions, the biggest source of confusion for this page.</div>
+  </div>
+</section>
+
+<!-- ============ 12 · FINAL CTA ============ -->
+<section id="s12" class="band band-dark final">
+  <div class="wrap">
+    <div class="smeta" style="text-align:left;">
+      <span class="smeta-num">§ 12</span><span class="smeta-name">Final CTA</span>
+      <span class="smeta-band">Band — Dark / indigo accent panel</span>
+    </div>
+    <h2>Ready to turn attention into something more useful?</h2>
+    <p class="lede">
+      If Charging Stack has already helped people discover your company, the next
+      step is making sure your story, website, brand, and growth system are ready
+      for the attention. Tell us where you are right now, and we'll recommend the
+      best starting point.
+    </p>
+    <div class="btn-row">
+      <a href="#" class="btn">Book a strategy call</a>
+      <a href="#" class="btn ghost">Ask about a package</a>
+    </div>
+    <div class="note" style="text-align:left;"><b>NOTE</b> — Recommended treatment: the site's indigo accent panel (same blue as the "Subscribe" / "Get a Scoop" blocks). Keep a clear visual break before the footer's own newsletter bar.</div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-sub">
+      <h3>Stay informed.<br>Subscribe to Charging Stack ⚡</h3>
+      <div class="foot-form">
+        <div class="ph foot-input">Email input</div>
+        <span class="btn" style="cursor:default;">Subscribe</span>
+      </div>
+    </div>
+    <div class="foot-cols">
+      <div>
+        <h4>Categories</h4>
+        <a href="#">Electric Vehicles</a><a href="#">Micromobility</a>
+        <a href="#">Tech</a><a href="#">Urban Mobility</a>
+      </div>
+      <div>
+        <h4>Information</h4>
+        <a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Sitemap</a>
+      </div>
+      <div>
+        <h4>Charging Stack</h4>
+        <a href="#">About</a><a href="#s1" class="added">Services — new</a><a href="#">Contact</a>
+      </div>
+      <div>
+        <h4>&nbsp;</h4>
+        <div class="foot-social"><div>X</div><div>▶</div><div>in</div><div>◎</div></div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>⚡ Charging Stack</span>
+      <span>Copyright © 2026 — Charging Stack</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-q').forEach(function (q) {
+    q.addEventListener('click', function () {
+      var item = q.parentElement;
+      var open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function (i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-sign').textContent = '+';
+      });
+      if (!open) {
+        item.classList.add('open');
+        item.querySelector('.faq-sign').textContent = '–';
+      }
+    });
+  });
+
+  /* Section rail — active state on scroll */
+  var railLinks = document.querySelectorAll('.rail a');
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        railLinks.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+  document.querySelectorAll('section.band').forEach(function (s) { obs.observe(s); });
+</script>
