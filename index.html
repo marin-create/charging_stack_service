@@ -1,9 +1,10 @@
 <meta charset="utf-8">
-<title>Charging Stack — Services Wireframe (Simplified)</title>
+<title>Charging Stack — Services Wireframe v3</title>
 <style>
   /* ============================================================
-     CHARGING STACK · SERVICES PAGE — GREY-BOX WIREFRAME (v2)
-     Simplified 3-section structure. Same design language as v1.
+     CHARGING STACK · SERVICES PAGE — GREY-BOX WIREFRAME (v3)
+     Consolidation pass. 5 sections, locked outline.
+     Same design language as v1 / v2.
      ============================================================ */
 
   :root {
@@ -57,22 +58,30 @@
 
   /* ---- typography ---- */
   h1, h2 { font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
-  h1 { font-size: clamp(28px, 4.4vw, 44px); }
+  h1 { font-size: clamp(27px, 4.2vw, 42px); }
   h2 { font-size: clamp(22px, 3vw, 32px); }
-  .eyebrow {
-    display: inline-block; font-size: 11px; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--accent);
-    border: 1px solid var(--accent); padding: 5px 10px; margin-bottom: 22px;
+  .kicker {
+    font-size: 13px; color: var(--accent); margin-bottom: 16px;
+    letter-spacing: .02em;
   }
-  p.lede { font-size: 15px; max-width: 62ch; color: var(--ink-mute); margin-top: 22px; }
+  p.lede { font-size: 15px; max-width: 64ch; color: var(--ink-mute); margin-top: 22px; }
   .band-dark p.lede { color: var(--mute-on-dark); }
+  .support { font-size: 12.5px; color: var(--ink-mute); margin-top: 22px; }
+  .band-dark .support { color: var(--mute-on-dark); }
   .closing-line {
-    margin-top: 40px; font-size: 16px; font-weight: 700; color: var(--ink);
-    max-width: 60ch;
+    margin-top: 40px; font-size: 17px; font-weight: 700; color: var(--ink);
+    max-width: 56ch;
   }
   .band-dark .closing-line { color: #fff; }
 
-  /* ---- buttons (interactive = accent) ---- */
+  /* short stacked intro lines (problem section) */
+  .stack-lines { margin-top: 22px; }
+  .stack-lines p { font-size: 15px; color: var(--ink-mute); }
+  .stack-lines .leak { color: var(--ink); font-weight: 700; margin-top: 12px; }
+  .band-dark .stack-lines p { color: var(--mute-on-dark); }
+  .band-dark .stack-lines .leak { color: #fff; }
+
+  /* ---- buttons ---- */
   .btn {
     display: inline-block; font-family: var(--mono); font-size: 13px;
     letter-spacing: .04em; padding: 13px 22px; cursor: pointer;
@@ -84,9 +93,9 @@
   .btn.ghost { background: transparent; color: var(--accent); }
   .band-dark .btn.ghost { color: #cfe0ec; border-color: #cfe0ec; }
   .band-dark .btn.ghost:hover { background: rgba(255,255,255,.08); }
-  .btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
 
-  /* ---- placeholder hatch (for any image-ish element) ---- */
+  /* ---- placeholder hatch ---- */
   .ph {
     background-color: var(--ph-light);
     background-image: repeating-linear-gradient(45deg,
@@ -96,33 +105,50 @@
     text-transform: uppercase; border: 1px solid var(--line);
   }
 
-  /* ---- problem cards (Section 2) ---- */
+  /* ---- problem cards (§02) ---- */
   .problems {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
     margin-top: 40px;
   }
   .pcard {
-    border: 1px solid var(--line); background: var(--card-light);
-    padding: 24px;
+    border: 1px solid var(--line); background: var(--card-light); padding: 24px;
   }
   .pcard h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
   .pcard p  { font-size: 13px; color: var(--ink-mute); }
   .pcard.wide { grid-column: 1 / -1; }
 
-  /* ---- solution offerings (Section 3) ---- */
+  /* ---- positioning strip (§03) ---- */
+  .pstrip {
+    margin-top: 34px; padding: 24px 0;
+    border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark);
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px;
+  }
+  .pstrip .big { font-size: 44px; font-weight: 700; color: #fff; line-height: 1; }
+  .pstrip .ptext { font-size: 12.5px; color: var(--mute-on-dark); max-width: 56ch; }
+  .pstrip .ptext b { color: var(--ink-on-dark); }
+
+  /* ---- proof cards (§03) ---- */
+  .proof {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px;
+  }
+  .pfcard { border: 1px solid var(--line-dark); background: var(--card-dark); padding: 22px; }
+  .pfcard h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 9px; }
+  .pfcard p  { font-size: 12px; color: var(--mute-on-dark); }
+
+  /* ---- offerings (§04) ---- */
   .offers { margin-top: 44px; }
   .offer {
     display: grid; grid-template-columns: 80px 1fr; gap: 28px;
-    padding: 32px 0; border-top: 1px solid var(--line-dark);
+    padding: 34px 0; border-top: 1px solid var(--line);
   }
-  .offer:last-child { border-bottom: 1px solid var(--line-dark); }
+  .offer:last-child { border-bottom: 1px solid var(--line); }
   .offer-n { font-size: 30px; font-weight: 700; color: var(--accent); line-height: 1; }
-  .offer-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
-  .offer-tag {
-    font-size: 13.5px; color: var(--ink-on-dark); margin-bottom: 14px;
-    font-style: italic;
+  .offer-title { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  .offer-body { font-size: 13px; color: var(--ink-mute); max-width: 74ch; }
+  .offer-outcome {
+    font-size: 13.5px; font-weight: 700; color: var(--ink); margin-top: 16px;
+    max-width: 74ch; border-left: 2px solid var(--accent); padding-left: 13px;
   }
-  .offer-body { font-size: 13px; color: var(--mute-on-dark); max-width: 70ch; }
 
   /* ---- designer NOTE callout ---- */
   .note {
@@ -132,6 +158,13 @@
   }
   .band-dark .note { color: #bcd4e2; background: rgba(63,109,142,.16); }
   .note b { letter-spacing: .1em; }
+
+  /* ---- final CTA ---- */
+  .final { text-align: center; }
+  .final .wrap { max-width: 680px; }
+  .final .smeta { text-align: left; }
+  .final p.lede { margin-left: auto; margin-right: auto; }
+  .final .btn-row { justify-content: center; }
 
   /* ============== TOP UTILITY STRIP ============== */
   .util {
@@ -218,8 +251,11 @@
   }
 
   /* ---- responsive ---- */
+  @media (max-width: 880px) {
+    .proof { grid-template-columns: repeat(2, 1fr); }
+  }
   @media (max-width: 760px) {
-    .problems { grid-template-columns: 1fr; }
+    .problems, .proof { grid-template-columns: 1fr; }
     .pcard.wide { grid-column: auto; }
     .offer { grid-template-columns: 1fr; gap: 14px; }
     html { scroll-padding-top: 150px; }
@@ -232,7 +268,7 @@
 </style>
 
 <!-- ============ TOP UTILITY STRIP ============ -->
-<div class="util">Wireframe · Charging Stack services page · simplified · grey-box layout — not final visual design</div>
+<div class="util">Wireframe v3 · Charging Stack services page · grey-box layout — not final visual design</div>
 
 <!-- ============ NAV ============ -->
 <header class="nav">
@@ -264,17 +300,19 @@
       <span class="smeta-num">§ 01</span><span class="smeta-name">Hero</span>
       <span class="smeta-band">Band — Dark</span>
     </div>
-    <span class="eyebrow">Charging Stack Services</span>
+    <div class="kicker">Built for mobility companies that need the market to get it.</div>
     <h1>Your mobility product should not need<br>a 30-minute call to make sense.</h1>
     <p class="lede">
-      If buyers, partners, investors, fleets, or cities need too much explanation
-      before they understand what you are building, the story around the product
-      is doing too little. That gap costs attention, trust, and commercial momentum.
+      We help EV, micromobility, charging, fleet, infrastructure, and urban mobility
+      companies sharpen the story, content, website, and lead paths around the
+      product — so buyers, fleets, cities, partners, and investors understand
+      faster and know what to do next.
     </p>
     <div class="btn-row">
-      <a href="#s3" class="btn">Make the product easier to understand</a>
-      <a href="#s3" class="btn ghost">See how it works</a>
+      <a href="#s5" class="btn">Make the product easier to understand</a>
     </div>
+    <p class="support">Built from 100+ conversations with mobility founders, operators, companies, and industry people.</p>
+    <div class="note"><b>NOTE</b> — Single CTA, as agreed. Kicker line carries the positioning; the headline carries the hook.</div>
   </div>
 </section>
 
@@ -285,16 +323,17 @@
       <span class="smeta-num">§ 02</span><span class="smeta-name">The problem · five cards</span>
       <span class="smeta-band">Band — Light</span>
     </div>
-    <h2>When people do not get it fast,<br>everything gets heavier.</h2>
-    <p class="lede">
-      Every pitch starts with context. Every partner call starts with the basics.
-      Every serious lead needs a different explanation before they know what to
-      do next.
-    </p>
+    <h2>When people don't get it fast,<br>everything gets heavier.</h2>
+    <div class="stack-lines">
+      <p>Every pitch starts with context.</p>
+      <p>Every partner call starts with the basics.</p>
+      <p>Every serious lead needs a different explanation before they know what to do next.</p>
+      <p class="leak">That is where momentum starts leaking.</p>
+    </div>
 
     <div class="problems">
       <div class="pcard">
-        <h3>The founder becomes the explainer</h3>
+        <h3>The founder becomes the manual</h3>
         <p>Too much of the company story lives in calls, DMs, decks, and repeated one-on-one explanations.</p>
       </div>
       <div class="pcard">
@@ -306,76 +345,142 @@
         <p>Fleets, cities, investors, distributors, partners, and buyers all need different proof. Most get the same overview.</p>
       </div>
       <div class="pcard">
-        <h3>Momentum fades between milestones</h3>
-        <p>A pilot, launch update, funding announcement, or event creates attention. Then the story goes quiet again.</p>
+        <h3>Milestones go quiet too fast</h3>
+        <p>A pilot, launch update, funding announcement, or event creates attention. Then the story cools off.</p>
       </div>
       <div class="pcard wide">
         <h3>Interest has nowhere clean to go</h3>
-        <p>People show up curious, but the next step is unclear. Forms, inboxes, and DMs end up carrying the commercial work.</p>
+        <p>People show up curious, but the next step is unclear. Forms, inboxes, and founder DMs end up carrying the commercial work.</p>
       </div>
     </div>
 
-    <p class="closing-line">That is where good mobility products start losing trust before they lose the sale.</p>
+    <p class="closing-line">Good mobility products should not lose trust before they lose the sale.</p>
 
-    <div class="note"><b>LAYOUT</b> — Five problem cards. Card #5 spans full width because it bridges directly into the solution section (interest → action).</div>
+    <div class="note"><b>LAYOUT</b> — Five problem cards. Card #5 spans full width — it bridges directly into "What we do" (interest → a clean path).</div>
   </div>
 </section>
 
-<!-- ============ 03 · THE SOLUTION ============ -->
+<!-- ============ 03 · WHY CHARGING STACK ============ -->
 <section id="s3" class="band band-dark">
   <div class="wrap">
     <div class="smeta">
-      <span class="smeta-num">§ 03</span><span class="smeta-name">The solution · three offerings</span>
+      <span class="smeta-num">§ 03</span><span class="smeta-name">Why Charging Stack</span>
       <span class="smeta-band">Band — Dark</span>
     </div>
-    <h2>Make the product easier to understand.<br>Keep the story alive. Give interest somewhere to go.</h2>
+    <h2>We already speak mobility.</h2>
     <p class="lede">
-      The product already takes enough work to build. The public layer around it
-      should not make every conversation harder.
+      Most agencies need time to understand your product, buyer, category, and
+      market language. We don't start from zero. Charging Stack spends every week
+      talking to founders, researching companies, and publishing mobility stories
+      across EVs, micromobility, charging, fleets, infrastructure, software, and
+      urban transport. So when we work on your story, site, content, or lead path,
+      we are not learning the category on your budget.
+    </p>
+
+    <div class="pstrip">
+      <span class="big">100+</span>
+      <span class="ptext">
+        <b>mobility founders, operators, companies, and cities featured, interviewed,
+        researched, or covered.</b> Not broad consumer reach — the right niche:
+        builders, operators, investors, partners, and industry insiders.
+      </span>
+    </div>
+
+    <div class="proof">
+      <div class="pfcard">
+        <h3>Mobility-native thinking</h3>
+        <p>EVs, micromobility, charging, fleets, infrastructure, transport software, and urban mobility.</p>
+      </div>
+      <div class="pfcard">
+        <h3>Founder access</h3>
+        <p>Direct contact with the people building, funding, operating, and launching mobility products.</p>
+      </div>
+      <div class="pfcard">
+        <h3>Story plus execution</h3>
+        <p>We do not only explain the product. We help build the website, content, flows, and systems around it.</p>
+      </div>
+      <div class="pfcard">
+        <h3>Built with PROTOTYP</h3>
+        <p>Strategy, design, branding, development, growth, and automation capability behind the scenes.</p>
+      </div>
+    </div>
+
+    <div class="note"><b>NOTE</b> — "100+" is defensible: it already appears publicly on the About page and reflects featured / interviewed / researched / covered companies. PROTOTYP stays a proof point only — not a co-brand.</div>
+  </div>
+</section>
+
+<!-- ============ 04 · WHAT WE DO ============ -->
+<section id="s4" class="band band-light">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 04</span><span class="smeta-name">What we do · three offerings</span>
+      <span class="smeta-band">Band — Light</span>
+    </div>
+    <h2>We fix the layer around the product.</h2>
+    <p class="lede">
+      You focus on building the vehicle, platform, charger, fleet system, or
+      mobility product. We help make the outside layer easier to understand,
+      easier to trust, and easier to act on.
     </p>
 
     <div class="offers">
       <div class="offer">
         <div class="offer-n">01</div>
         <div>
-          <div class="offer-title">Get understood</div>
-          <div class="offer-tag">Video content that makes complex mobility products clear faster.</div>
+          <div class="offer-title">Clarify the story</div>
           <p class="offer-body">
-            Founder interviews, product explainers, launch videos, walkthroughs,
-            event clips, and short-form cuts built from the details that usually
-            stay trapped in calls, decks, and demos.
+            Positioning, messaging, product narrative, founder story, proof points,
+            launch angles, and the hard questions your site should already answer.
           </p>
+          <p class="offer-outcome">So people understand what you do, who it is for, why it matters, and why they should trust it.</p>
         </div>
       </div>
       <div class="offer">
         <div class="offer-n">02</div>
         <div>
-          <div class="offer-title">Stay visible</div>
-          <div class="offer-tag">Organic marketing that keeps trust building between milestones.</div>
+          <div class="offer-title">Create the content</div>
           <p class="offer-body">
-            LinkedIn content, founder posts, articles, newsletters, SEO content,
-            launch campaigns, and repurposed assets that keep the company present
-            when there is no big announcement to lean on.
+            Founder interviews, product explainers, launch videos, walkthroughs,
+            event clips, articles, LinkedIn posts, newsletters, SEO content, and
+            short-form cuts.
           </p>
+          <p class="offer-outcome">So your company stays visible between pilots, launches, funding updates, and rollout milestones.</p>
         </div>
       </div>
       <div class="offer">
         <div class="offer-n">03</div>
         <div>
-          <div class="offer-title">Turn interest into action</div>
-          <div class="offer-tag">Websites and platforms that make the next step obvious.</div>
+          <div class="offer-title">Build the path</div>
           <p class="offer-body">
-            Launch sites, product pages, partner pages, waitlists, reservation
-            paths, configurators, CRM-connected forms, and custom platforms built
-            around how people actually move from curiosity to contact.
+            Websites, product pages, partner pages, waitlists, reservation paths,
+            configurators, CRM-connected forms, and custom platforms.
           </p>
+          <p class="offer-outcome">So interest has somewhere clean to go.</p>
         </div>
       </div>
     </div>
 
+    <div class="note"><b>LAYOUT</b> — Each offering maps 1:1 to a problem card cluster above. The bold outcome line is the payoff — keep it visually distinct from the deliverables list.</div>
+  </div>
+</section>
+
+<!-- ============ 05 · CLOSING CTA ============ -->
+<section id="s5" class="band band-dark final">
+  <div class="wrap">
+    <div class="smeta">
+      <span class="smeta-num">§ 05</span><span class="smeta-name">Closing CTA</span>
+      <span class="smeta-band">Band — Dark / accent panel</span>
+    </div>
+    <h2>Got a mobility product that still takes too long to explain?</h2>
+    <p class="lede">
+      Tell us where the story, website, content, or lead path breaks. We'll help
+      you find the right starting point.
+    </p>
     <div class="btn-row">
       <a href="#" class="btn">Make the product easier to understand</a>
+      <a href="#" class="btn ghost">Talk to us first</a>
     </div>
+    <div class="note" style="text-align:left;"><b>OPEN</b> — Two CTAs shown per the outline, but both lead to the same place. Decide before hi-fi: keep one button, or keep both and give them genuinely different destinations (e.g. a form vs. a direct email/call).</div>
   </div>
 </section>
 
