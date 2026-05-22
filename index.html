@@ -1,521 +1,1423 @@
-<meta charset="utf-8">
-<title>Charging Stack — Services Wireframe v3</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ÆMOTION · Deux — Homepage Wireframe v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     CHARGING STACK · SERVICES PAGE — GREY-BOX WIREFRAME (v3)
-     Consolidation pass. 5 sections, locked outline.
-     Same design language as v1 / v2.
-     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --paper:        #e4e4e1;
-    --band-light:   #f3f3f1;
-    --band-dark:    #292a2c;
-    --card-light:   #ffffff;
-    --card-dark:    #323336;
-    --ph-light:     #dadad6;
-    --line:         #c2c2bd;
-    --line-strong:  #9a9a95;
-    --line-dark:    #45464a;
-    --ink:          #1c1c1a;
-    --ink-mute:     #6e6e69;
-    --ink-on-dark:  #d6d6d3;
-    --mute-on-dark: #87878a;
-    --accent:       #3f6d8e;
-    --accent-deep:  #335a76;
-    --mono: 'SF Mono','JetBrains Mono','Fira Code',ui-monospace,Menlo,Consolas,monospace;
+    --wire-bg: #EDECEA;
+    --wire-section-a: #FFFFFF;
+    --wire-section-b: #F4F3EF;
+    --wire-section-dark: #16161400;
+    --wire-border: rgba(0,0,0,0.10);
+    --wire-border-strong: rgba(0,0,0,0.20);
+    --placeholder-bg: #CBCAC3;
+    --placeholder-dark: #252523;
+    --ink: #111110;
+    --ink-2: #3A3A38;
+    --ink-3: #6B6B68;
+    --ink-4: #9A9A96;
+    --nav-bg: #111110;
+    --nav-text: rgba(255,255,255,0.85);
+    --nav-border: rgba(255,255,255,0.08);
+    --annot-bg: #FEF3E2;
+    --annot-border: #C8600A;
+    --annot-text: #7A3A0A;
+    --annot-label: #C8600A;
+    --cta-primary: #111110;
+    --cta-secondary: transparent;
+    --spec-bg: #F0EFE9;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 124px; }
   body {
-    font-family: var(--mono);
-    background: var(--paper);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--wire-bg);
     color: var(--ink);
-    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    line-height: 1.6;
   }
 
-  /* ---- layout ---- */
-  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 32px; }
-  .band { padding: 80px 0; border-bottom: 1px solid var(--line-strong); }
-  .band-light { background: var(--band-light); }
-  .band-dark  { background: var(--band-dark); color: var(--ink-on-dark); }
-
-  /* ---- section meta label ---- */
-  .smeta {
-    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline;
-    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-    padding-bottom: 22px; margin-bottom: 36px;
-    border-bottom: 1px dashed var(--line);
+  /* ─── DOCUMENT HEADER ─────────────────────────────────── */
+  .doc-header {
+    background: #1E1E1C;
+    color: rgba(255,255,255,0.7);
+    padding: 12px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .band-dark .smeta { border-bottom-color: var(--line-dark); }
-  .smeta-num  { color: var(--accent); font-weight: 700; }
-  .smeta-name { font-weight: 700; }
-  .band-dark .smeta-name { color: #fff; }
-  .smeta-band { margin-left: auto; color: var(--ink-mute); }
-  .band-dark .smeta-band { color: var(--mute-on-dark); }
-
-  /* ---- typography ---- */
-  h1, h2 { font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
-  h1 { font-size: clamp(27px, 4.2vw, 42px); }
-  h2 { font-size: clamp(22px, 3vw, 32px); }
-  .kicker {
-    font-size: 13px; color: var(--accent); margin-bottom: 16px;
-    letter-spacing: .02em;
-  }
-  p.lede { font-size: 15px; max-width: 64ch; color: var(--ink-mute); margin-top: 22px; }
-  .band-dark p.lede { color: var(--mute-on-dark); }
-  .support { font-size: 12.5px; color: var(--ink-mute); margin-top: 22px; }
-  .band-dark .support { color: var(--mute-on-dark); }
-  .closing-line {
-    margin-top: 40px; font-size: 17px; font-weight: 700; color: var(--ink);
-    max-width: 56ch;
-  }
-  .band-dark .closing-line { color: #fff; }
-
-  /* short stacked intro lines (problem section) */
-  .stack-lines { margin-top: 22px; }
-  .stack-lines p { font-size: 15px; color: var(--ink-mute); }
-  .stack-lines .leak { color: var(--ink); font-weight: 700; margin-top: 12px; }
-  .band-dark .stack-lines p { color: var(--mute-on-dark); }
-  .band-dark .stack-lines .leak { color: #fff; }
-
-  /* ---- buttons ---- */
-  .btn {
-    display: inline-block; font-family: var(--mono); font-size: 13px;
-    letter-spacing: .04em; padding: 13px 22px; cursor: pointer;
-    border: 1.5px solid var(--accent); background: var(--accent); color: #fff;
-    text-decoration: none; transition: background .15s, transform .05s;
-  }
-  .btn:hover { background: var(--accent-deep); }
-  .btn:active { transform: translateY(1px); }
-  .btn.ghost { background: transparent; color: var(--accent); }
-  .band-dark .btn.ghost { color: #cfe0ec; border-color: #cfe0ec; }
-  .band-dark .btn.ghost:hover { background: rgba(255,255,255,.08); }
-  .btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
-
-  /* ---- placeholder hatch ---- */
-  .ph {
-    background-color: var(--ph-light);
-    background-image: repeating-linear-gradient(45deg,
-      transparent, transparent 7px, rgba(0,0,0,.05) 7px, rgba(0,0,0,.05) 8px);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--ink-mute); font-size: 10px; letter-spacing: .12em;
-    text-transform: uppercase; border: 1px solid var(--line);
+  .doc-header-left { display: flex; gap: 32px; align-items: center; }
+  .doc-header-brand { color: #fff; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; }
+  .doc-header-meta { display: flex; gap: 24px; }
+  .doc-header-meta span { opacity: 0.5; }
+  .doc-header-meta span strong { opacity: 1; color: rgba(255,255,255,0.8); }
+  .doc-status {
+    background: #C8600A;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
-  /* ---- problem cards (§02) ---- */
-  .problems {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
-    margin-top: 40px;
+  /* ─── BROWSER CHROME ──────────────────────────────────── */
+  .browser-chrome {
+    background: #2C2C2A;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
   }
-  .pcard {
-    border: 1px solid var(--line); background: var(--card-light); padding: 24px;
+  .browser-dots { display: flex; gap: 6px; }
+  .browser-dots span {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #4A4A48;
   }
-  .pcard h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
-  .pcard p  { font-size: 13px; color: var(--ink-mute); }
-  .pcard.wide { grid-column: 1 / -1; }
-
-  /* ---- positioning strip (§03) ---- */
-  .pstrip {
-    margin-top: 34px; padding: 24px 0;
-    border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark);
-    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px;
-  }
-  .pstrip .big { font-size: 44px; font-weight: 700; color: #fff; line-height: 1; }
-  .pstrip .ptext { font-size: 12.5px; color: var(--mute-on-dark); max-width: 56ch; }
-  .pstrip .ptext b { color: var(--ink-on-dark); }
-
-  /* ---- proof cards (§03) ---- */
-  .proof {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px;
-  }
-  .pfcard { border: 1px solid var(--line-dark); background: var(--card-dark); padding: 22px; }
-  .pfcard h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 9px; }
-  .pfcard p  { font-size: 12px; color: var(--mute-on-dark); }
-
-  /* ---- offerings (§04) ---- */
-  .offers { margin-top: 44px; }
-  .offer {
-    display: grid; grid-template-columns: 80px 1fr; gap: 28px;
-    padding: 34px 0; border-top: 1px solid var(--line);
-  }
-  .offer:last-child { border-bottom: 1px solid var(--line); }
-  .offer-n { font-size: 30px; font-weight: 700; color: var(--accent); line-height: 1; }
-  .offer-title { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
-  .offer-body { font-size: 13px; color: var(--ink-mute); max-width: 74ch; }
-  .offer-outcome {
-    font-size: 13.5px; font-weight: 700; color: var(--ink); margin-top: 16px;
-    max-width: 74ch; border-left: 2px solid var(--accent); padding-left: 13px;
+  .browser-address {
+    background: #3A3A38;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    flex: 1;
+    max-width: 480px;
+    margin: 0 auto;
   }
 
-  /* ---- designer NOTE callout ---- */
-  .note {
-    margin-top: 36px; border: 1px dashed var(--accent);
-    padding: 12px 16px; font-size: 11.5px; color: var(--accent-deep);
-    background: rgba(63,109,142,.06); letter-spacing: .01em;
-  }
-  .band-dark .note { color: #bcd4e2; background: rgba(63,109,142,.16); }
-  .note b { letter-spacing: .1em; }
-
-  /* ---- final CTA ---- */
-  .final { text-align: center; }
-  .final .wrap { max-width: 680px; }
-  .final .smeta { text-align: left; }
-  .final p.lede { margin-left: auto; margin-right: auto; }
-  .final .btn-row { justify-content: center; }
-
-  /* ============== TOP UTILITY STRIP ============== */
-  .util {
-    background: var(--accent); color: #fff; font-size: 10.5px;
-    letter-spacing: .16em; text-transform: uppercase; text-align: center;
-    padding: 7px 16px;
+  /* ─── SITE WRAPPER ────────────────────────────────────── */
+  .site-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: var(--wire-section-a);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 8px 40px rgba(0,0,0,0.12);
+    position: relative;
   }
 
-  /* ============== NAV ============== */
-  .nav {
-    position: sticky; top: 0; z-index: 50;
-    background: var(--band-dark); border-bottom: 1px solid var(--line-dark);
+  /* ─── NAV ─────────────────────────────────────────────── */
+  nav {
+    background: var(--nav-bg);
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    height: 60px;
+    gap: 0;
+    position: sticky;
+    top: 37px;
+    z-index: 90;
+    border-bottom: 1px solid var(--nav-border);
   }
-  .nav-bar {
-    display: flex; align-items: center; gap: 16px;
-    padding: 14px 32px; max-width: 1060px; margin: 0 auto;
-  }
-  .nav-burger {
-    width: 30px; height: 22px; border: 1px solid var(--line-dark);
-    display: flex; flex-direction: column; justify-content: center;
-    gap: 3px; padding: 0 5px; cursor: pointer;
-  }
-  .nav-burger span { height: 1.5px; background: var(--ink-on-dark); }
   .nav-logo {
-    margin: 0 auto; display: flex; align-items: center; gap: 8px;
-    color: #fff; font-weight: 700; font-size: 14px; letter-spacing: .02em;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-right: 36px;
+    white-space: nowrap;
   }
-  .logo-mark {
-    width: 24px; height: 24px; border: 1px solid var(--accent);
-    color: var(--accent); display: flex; align-items: center;
-    justify-content: center; font-size: 13px;
+  .nav-logo span { font-style: italic; opacity: 0.5; font-size: 13px; margin-left: 8px; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
   }
-  .nav-right { display: flex; align-items: center; gap: 12px; }
-  .nav-search {
-    width: 26px; height: 26px; border: 1px solid var(--line-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; color: var(--mute-on-dark);
+  .nav-link {
+    font-size: 13px;
+    color: var(--nav-text);
+    padding: 8px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    opacity: 0.7;
+    white-space: nowrap;
   }
-  .nav-sub {
-    border: 1px solid var(--line-dark); color: var(--ink-on-dark);
-    font-size: 11px; padding: 6px 12px; letter-spacing: .08em;
+  .nav-link.active { opacity: 1; background: rgba(255,255,255,0.07); }
+  .nav-ctas {
+    display: flex;
+    gap: 10px;
+    align-items: center;
   }
-  .nav-items {
-    display: flex; flex-wrap: wrap; gap: 4px 22px; justify-content: center;
-    padding: 0 32px 12px; max-width: 1060px; margin: 0 auto;
-    font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+  .nav-cta-ghost {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 7px 16px;
+    border-radius: 4px;
+    white-space: nowrap;
+    cursor: pointer;
   }
-  .nav-items a { color: var(--mute-on-dark); text-decoration: none; padding-bottom: 4px; }
-  .nav-items a:hover { color: var(--ink-on-dark); }
-  .nav-items a.active {
-    color: #fff; border-bottom: 2px solid var(--accent); font-weight: 700;
+  .nav-cta-filled {
+    font-size: 13px;
+    color: #111;
+    background: #fff;
+    padding: 7px 16px;
+    border-radius: 4px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .nav-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px dashed rgba(255,255,255,0.12);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 4px;
   }
 
-  /* ============== FOOTER ============== */
-  .foot { background: var(--band-dark); color: var(--ink-on-dark); padding: 0 0 40px; }
-  .foot-sub {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 18px;
-    justify-content: space-between; padding: 36px 0;
-    border-bottom: 1px solid var(--line-dark);
+  /* ─── SECTION SYSTEM ──────────────────────────────────── */
+  .section { position: relative; }
+  .section-a { background: var(--wire-section-a); }
+  .section-b { background: var(--wire-section-b); }
+  .section-dark { background: #111110; }
+  .section-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 72px 56px;
   }
-  .foot-sub h3 { font-size: 16px; color: #fff; }
-  .foot-form { display: flex; gap: 0; }
-  .foot-input { width: 240px; height: 38px; background: #fff; border: 1px solid var(--line); }
-  .foot-cols {
-    display: grid; grid-template-columns: repeat(3,1fr) auto; gap: 24px;
-    padding: 32px 0; font-size: 12px;
+  .section-inner.tight { padding: 56px 56px; }
+  .section-inner.flush { padding: 0; }
+
+  /* Section label */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .foot-cols h4 {
-    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
-    color: #fff; margin-bottom: 12px;
+  .section-num {
+    background: var(--wire-bg);
+    border: 1px solid var(--wire-border);
+    border-radius: 3px;
+    padding: 2px 8px;
+    color: var(--ink-3);
+    font-size: 10px;
   }
-  .foot-cols a { display: block; color: var(--mute-on-dark); text-decoration: none; padding: 3px 0; }
-  .foot-cols a.added { color: var(--accent); }
-  .foot-social { display: flex; gap: 8px; }
-  .foot-social div {
-    width: 26px; height: 26px; border: 1px solid var(--line-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; color: var(--mute-on-dark);
+  .section-label-dark {
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .foot-base {
-    display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between;
-    padding-top: 24px; border-top: 1px solid var(--line-dark);
-    font-size: 11px; color: var(--mute-on-dark);
+  .section-num-dark {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 10px;
   }
 
-  /* ---- responsive ---- */
-  @media (max-width: 880px) {
-    .proof { grid-template-columns: repeat(2, 1fr); }
+  /* ─── PLACEHOLDERS ────────────────────────────────────── */
+  .placeholder {
+    background: var(--placeholder-bg);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      rgba(0,0,0,0.05) 8px,
+      rgba(0,0,0,0.05) 9px
+    );
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
   }
-  @media (max-width: 760px) {
-    .problems, .proof { grid-template-columns: 1fr; }
-    .pcard.wide { grid-column: auto; }
-    .offer { grid-template-columns: 1fr; gap: 14px; }
-    html { scroll-padding-top: 150px; }
+  .placeholder-dark {
+    background: var(--placeholder-dark);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(255,255,255,0.02) 10px,
+      rgba(255,255,255,0.02) 11px
+    );
+    border-radius: 0;
   }
-  @media (max-width: 520px) {
-    .wrap { padding: 0 18px; }
-    .nav-bar { padding: 12px 18px; }
-    .nav-items { padding: 0 18px 12px; }
+  .placeholder-icon {
+    width: 40px; height: 40px;
+    background: rgba(0,0,0,0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: rgba(0,0,0,0.35);
+  }
+  .placeholder-dark .placeholder-icon {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.3);
+  }
+  .placeholder-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.3);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .placeholder-dark .placeholder-text { color: rgba(255,255,255,0.25); }
+  .placeholder-dim {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(0,0,0,0.2);
+    letter-spacing: 0.06em;
+  }
+  .placeholder-dark .placeholder-dim { color: rgba(255,255,255,0.15); }
+
+  /* ─── ANNOTATION SYSTEM ───────────────────────────────── */
+  .annotation-bar {
+    background: var(--annot-bg);
+    border-top: 2px solid var(--annot-border);
+    padding: 14px 56px;
+  }
+  .annotation-inner {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .annot-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--annot-label);
+    background: rgba(200, 96, 10, 0.12);
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  .annot-text {
+    font-size: 13px;
+    color: var(--annot-text);
+    line-height: 1.65;
+  }
+  .annot-text strong {
+    color: #7A3A0A;
+    font-weight: 600;
+  }
+  .annot-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .annot-chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    border: 1px solid rgba(200, 96, 10, 0.3);
+    color: var(--annot-label);
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  /* ─── BUTTONS ─────────────────────────────────────────── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #111;
+    border: none;
+    padding: 13px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-ghost-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 13px 28px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 13px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-outline-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    padding: 13px 28px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-ghost-dark-section {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 13px 28px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-arrow::after { content: ' →'; }
+
+  /* ─── HERO ────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 640px;
+    max-height: 900px;
+    overflow: hidden;
+  }
+  .hero-video {
+    width: 100%;
+    height: 100%;
+  }
+  .hero-video .placeholder-dark {
+    width: 100%;
+    height: 100%;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 80px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+  }
+  .hero-sequence {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .hero-wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 88px;
+    font-weight: 400;
+    color: #fff;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .hero-tagline {
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+    font-style: italic;
+  }
+  .hero-tagline em {
+    font-style: normal;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 4px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 28px;
+    right: 40px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-scroll-line {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ─── SPECS SECTION ───────────────────────────────────── */
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--wire-border);
+    border: 1px solid var(--wire-border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .spec-card {
+    background: var(--wire-section-a);
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .spec-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .spec-unit {
+    font-size: 18px;
+    color: var(--ink-3);
+    font-weight: 300;
+  }
+  .spec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 6px;
+  }
+  .spec-note {
+    font-size: 12px;
+    color: var(--ink-4);
+    line-height: 1.5;
+  }
+
+  .claims-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .claim-card {
+    background: var(--spec-bg);
+    border: 1px solid var(--wire-border);
+    border-radius: 6px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .claim-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .claim-num sub {
+    font-size: 16px;
+    vertical-align: baseline;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .claim-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 4px;
+  }
+  .claim-desc {
+    font-size: 13px;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
+
+  .specs-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .specs-permis {
+    background: var(--spec-bg);
+    border: 1px solid var(--wire-border);
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .specs-permis strong { font-weight: 600; }
+
+  /* ─── BATTERY SECTION ─────────────────────────────────── */
+  .battery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .battery-facts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .battery-fact {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--wire-border);
+  }
+  .battery-fact:last-child { border-bottom: none; padding-bottom: 0; }
+  .battery-fact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    min-width: 120px;
+    padding-top: 2px;
+  }
+  .battery-fact-value {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  /* ─── USE CASE REEL ───────────────────────────────────── */
+  .use-case-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  .use-case-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .use-case-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    text-align: center;
+  }
+
+  /* ─── OWNERSHIP SECTION ───────────────────────────────── */
+  .ownership-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .ownership-card {
+    background: var(--wire-section-b);
+    border: 1px solid var(--wire-border);
+    border-radius: 6px;
+    padding: 28px;
+  }
+  .ownership-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ownership-icon {
+    width: 28px; height: 28px;
+    background: var(--placeholder-bg);
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .ownership-body {
+    font-size: 14px;
+    color: var(--ink-3);
+    line-height: 1.65;
+  }
+  .ownership-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--ink-2);
+    margin-top: 14px;
+    border-bottom: 1px solid var(--wire-border-strong);
+    padding-bottom: 2px;
+    cursor: pointer;
+  }
+
+  /* ─── IG SOCIAL PROOF ─────────────────────────────────── */
+  .ig-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .ig-handle {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ig-handle-at {
+    color: var(--ink-4);
+    font-weight: 300;
+  }
+  .ig-caption {
+    font-size: 14px;
+    color: var(--ink-3);
+    font-style: italic;
+    max-width: 400px;
+    text-align: right;
+    line-height: 1.55;
+  }
+  .ig-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+  .ig-item {
+    aspect-ratio: 1;
+  }
+  .ig-item .placeholder {
+    height: 100%;
+    border-radius: 3px;
+  }
+  .ig-cta {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .ig-cta-text {
+    font-size: 14px;
+    color: var(--ink-3);
+  }
+
+  /* ─── CTA BLOCK ───────────────────────────────────────── */
+  .cta-block-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .cta-block-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+  .cta-block-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .cta-block-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 24px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  .cta-block-item.primary {
+    background: #fff;
+    border-color: #fff;
+  }
+  .cta-block-item.primary .cta-block-item-label { color: var(--ink-3); }
+  .cta-block-item.primary .cta-block-item-btn { background: var(--ink); color: #fff; }
+  .cta-block-item-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .cta-block-item-btn {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+  }
+  .cta-block-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    margin-top: 24px;
+  }
+
+  /* ─── FOOTER ──────────────────────────────────────────── */
+  footer {
+    background: #0E0E0D;
+    padding: 40px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+  }
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+  .footer-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+  .footer-legal {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.04em;
+  }
+  .footer-placeholder {
+    background: rgba(255,255,255,0.05);
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ─── UTILITIES ───────────────────────────────────────── */
+  .flex-gap { display: flex; gap: 12px; align-items: center; }
+  .mt-8 { margin-top: 8px; }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .section-title-dark {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .section-lead {
+    font-size: 16px;
+    color: var(--ink-3);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-bottom: 40px;
   }
 </style>
+</head>
+<body>
 
-<!-- ============ TOP UTILITY STRIP ============ -->
-<div class="util">Wireframe v3 · Charging Stack services page · grey-box layout — not final visual design</div>
-
-<!-- ============ NAV ============ -->
-<header class="nav">
-  <div class="nav-bar">
-    <div class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></div>
-    <div class="nav-logo"><span class="logo-mark">⚡</span> Charging Stack</div>
-    <div class="nav-right">
-      <div class="nav-search">⌕</div>
-      <div class="nav-sub">Subscribe</div>
+<!-- DOCUMENT HEADER -->
+<div class="doc-header">
+  <div class="doc-header-left">
+    <div class="doc-header-brand">ÆMOTION</div>
+    <div class="doc-header-meta">
+      <span><strong>Deliverable:</strong> Homepage Wireframe</span>
+      <span><strong>Version:</strong> v1.0</span>
+      <span><strong>Fidelity:</strong> Mid</span>
+      <span><strong>Viewport:</strong> Desktop 1280px</span>
+      <span><strong>Objective:</strong> B2C Pre-order</span>
     </div>
   </div>
-  <nav class="nav-items">
-    <a href="#">Home</a>
-    <a href="#">Electric Vehicles</a>
-    <a href="#">Tech</a>
-    <a href="#">Micromobility</a>
-    <a href="#">Urban Mobility</a>
-    <a href="#">About</a>
-    <a href="#s1" class="active">Services</a>
-    <a href="#">Contact</a>
-    <a href="#">Startup Watch</a>
+  <span class="doc-status">For Review</span>
+</div>
+
+<!-- BROWSER CHROME -->
+<div class="browser-chrome">
+  <div class="browser-dots"><span></span><span></span><span></span></div>
+  <div class="browser-address">aemotion.com</div>
+</div>
+
+<!-- SITE WRAPPER -->
+<div class="site-wrapper">
+
+  <!-- ─── NAVIGATION ──────────────────────────────────── -->
+  <nav>
+    <div class="nav-logo">ÆMOTION <span>/ Deux</span></div>
+    <div class="nav-links">
+      <a class="nav-link active">Home</a>
+      <a class="nav-link">Configure</a>
+      <a class="nav-link">Why ÆMOTION</a>
+      <a class="nav-link">Fleet &amp; B2B</a>
+      <a class="nav-link">Our Story</a>
+      <a class="nav-link">Community</a>
+    </div>
+    <div class="nav-ctas">
+      <span class="nav-cta-ghost btn-arrow">Register for a test ride</span>
+      <span class="nav-cta-filled btn-arrow">Configure</span>
+    </div>
   </nav>
-</header>
 
-<!-- ============ 01 · HERO ============ -->
-<section id="s1" class="band band-dark">
-  <div class="wrap">
-    <div class="smeta">
-      <span class="smeta-num">§ 01</span><span class="smeta-name">Hero</span>
-      <span class="smeta-band">Band — Dark</span>
+  <!-- ANNOTATION: NAV -->
+  <div class="annotation-bar">
+    <div class="annotation-inner">
+      <span class="annot-tag">Nav</span>
+      <div class="annot-text">
+        Two persistent CTAs on every page. <strong>Configure</strong> is the primary conversion action (filled, white). <strong>Register for a test ride</strong> is the secondary path for visitors not yet ready to commit (ghost). Both remain sticky throughout the full scroll. Logo treatment combines the brand name with the vehicle name as a single lockup.
+      </div>
     </div>
-    <div class="kicker">Built for mobility companies that need the market to get it.</div>
-    <h1>Your mobility product should not need<br>a 30-minute call to make sense.</h1>
-    <p class="lede">
-      We help EV, micromobility, charging, fleet, infrastructure, and urban mobility
-      companies sharpen the story, content, website, and lead paths around the
-      product — so buyers, fleets, cities, partners, and investors understand
-      faster and know what to do next.
-    </p>
-    <div class="btn-row">
-      <a href="#s5" class="btn">Make the product easier to understand</a>
-    </div>
-    <p class="support">Built from 100+ conversations with mobility founders, operators, companies, and industry people.</p>
-    <div class="note"><b>NOTE</b> — Single CTA, as agreed. Kicker line carries the positioning; the headline carries the hook.</div>
   </div>
-</section>
 
-<!-- ============ 02 · THE PROBLEM ============ -->
-<section id="s2" class="band band-light">
-  <div class="wrap">
-    <div class="smeta">
-      <span class="smeta-num">§ 02</span><span class="smeta-name">The problem · five cards</span>
-      <span class="smeta-band">Band — Light</span>
-    </div>
-    <h2>When people don't get it fast,<br>everything gets heavier.</h2>
-    <div class="stack-lines">
-      <p>Every pitch starts with context.</p>
-      <p>Every partner call starts with the basics.</p>
-      <p>Every serious lead needs a different explanation before they know what to do next.</p>
-      <p class="leak">That is where momentum starts leaking.</p>
-    </div>
-
-    <div class="problems">
-      <div class="pcard">
-        <h3>The founder becomes the manual</h3>
-        <p>Too much of the company story lives in calls, DMs, decks, and repeated one-on-one explanations.</p>
-      </div>
-      <div class="pcard">
-        <h3>The website skips the hard questions</h3>
-        <p>It says what the product is, but not clearly enough who it is for, why it matters, why it can be trusted, and what should happen next.</p>
-      </div>
-      <div class="pcard">
-        <h3>Every audience gets the same story</h3>
-        <p>Fleets, cities, investors, distributors, partners, and buyers all need different proof. Most get the same overview.</p>
-      </div>
-      <div class="pcard">
-        <h3>Milestones go quiet too fast</h3>
-        <p>A pilot, launch update, funding announcement, or event creates attention. Then the story cools off.</p>
-      </div>
-      <div class="pcard wide">
-        <h3>Interest has nowhere clean to go</h3>
-        <p>People show up curious, but the next step is unclear. Forms, inboxes, and founder DMs end up carrying the commercial work.</p>
-      </div>
-    </div>
-
-    <p class="closing-line">Good mobility products should not lose trust before they lose the sale.</p>
-
-    <div class="note"><b>LAYOUT</b> — Five problem cards. Card #5 spans full width — it bridges directly into "What we do" (interest → a clean path).</div>
-  </div>
-</section>
-
-<!-- ============ 03 · WHY CHARGING STACK ============ -->
-<section id="s3" class="band band-dark">
-  <div class="wrap">
-    <div class="smeta">
-      <span class="smeta-num">§ 03</span><span class="smeta-name">Why Charging Stack</span>
-      <span class="smeta-band">Band — Dark</span>
-    </div>
-    <h2>We already speak mobility.</h2>
-    <p class="lede">
-      Most agencies need time to understand your product, buyer, category, and
-      market language. We don't start from zero. Charging Stack spends every week
-      talking to founders, researching companies, and publishing mobility stories
-      across EVs, micromobility, charging, fleets, infrastructure, software, and
-      urban transport. So when we work on your story, site, content, or lead path,
-      we are not learning the category on your budget.
-    </p>
-
-    <div class="pstrip">
-      <span class="big">100+</span>
-      <span class="ptext">
-        <b>mobility founders, operators, companies, and cities featured, interviewed,
-        researched, or covered.</b> Not broad consumer reach — the right niche:
-        builders, operators, investors, partners, and industry insiders.
-      </span>
-    </div>
-
-    <div class="proof">
-      <div class="pfcard">
-        <h3>Mobility-native thinking</h3>
-        <p>EVs, micromobility, charging, fleets, infrastructure, transport software, and urban mobility.</p>
-      </div>
-      <div class="pfcard">
-        <h3>Founder access</h3>
-        <p>Direct contact with the people building, funding, operating, and launching mobility products.</p>
-      </div>
-      <div class="pfcard">
-        <h3>Story plus execution</h3>
-        <p>We do not only explain the product. We help build the website, content, flows, and systems around it.</p>
-      </div>
-      <div class="pfcard">
-        <h3>Built with PROTOTYP</h3>
-        <p>Strategy, design, branding, development, growth, and automation capability behind the scenes.</p>
-      </div>
-    </div>
-
-    <div class="note"><b>NOTE</b> — "100+" is defensible: it already appears publicly on the About page and reflects featured / interviewed / researched / covered companies. PROTOTYP stays a proof point only — not a co-brand.</div>
-  </div>
-</section>
-
-<!-- ============ 04 · WHAT WE DO ============ -->
-<section id="s4" class="band band-light">
-  <div class="wrap">
-    <div class="smeta">
-      <span class="smeta-num">§ 04</span><span class="smeta-name">What we do · three offerings</span>
-      <span class="smeta-band">Band — Light</span>
-    </div>
-    <h2>We fix the layer around the product.</h2>
-    <p class="lede">
-      You focus on building the vehicle, platform, charger, fleet system, or
-      mobility product. We help make the outside layer easier to understand,
-      easier to trust, and easier to act on.
-    </p>
-
-    <div class="offers">
-      <div class="offer">
-        <div class="offer-n">01</div>
-        <div>
-          <div class="offer-title">Clarify the story</div>
-          <p class="offer-body">
-            Positioning, messaging, product narrative, founder story, proof points,
-            launch angles, and the hard questions your site should already answer.
-          </p>
-          <p class="offer-outcome">So people understand what you do, who it is for, why it matters, and why they should trust it.</p>
+  <!-- ─── SECTION 01: HERO ─────────────────────────────── -->
+  <section class="section section-dark">
+    <div class="hero">
+      <div class="hero-video">
+        <div class="placeholder placeholder-dark" style="height:100%;">
+          <div class="placeholder-icon" style="width:52px;height:52px;font-size:22px;">▶</div>
+          <div class="placeholder-text">
+            Hero video — rapid cuts<br>
+            6am motorway · tight city parking · mountain road · delivery bay · rooftop car park<br>
+            Same vehicle · Same rider · Same day
+          </div>
+          <div class="placeholder-dim">Full-bleed · No audio on autoplay · Loop · Pre-series footage</div>
         </div>
       </div>
-      <div class="offer">
-        <div class="offer-n">02</div>
-        <div>
-          <div class="offer-title">Create the content</div>
-          <p class="offer-body">
-            Founder interviews, product explainers, launch videos, walkthroughs,
-            event clips, articles, LinkedIn posts, newsletters, SEO content, and
-            short-form cuts.
-          </p>
-          <p class="offer-outcome">So your company stays visible between pilots, launches, funding updates, and rollout milestones.</p>
+      <div class="hero-overlay">
+        <div class="hero-sequence">
+          Motorway &nbsp;&nbsp;·&nbsp;&nbsp; City &nbsp;&nbsp;·&nbsp;&nbsp; Mountain &nbsp;&nbsp;·&nbsp;&nbsp; Field &nbsp;&nbsp;·&nbsp;&nbsp; Delivery
+        </div>
+        <div class="hero-wordmark">DEUX</div>
+        <div class="hero-tagline">
+          Built for the city. Ready for everywhere else.
+          <em>[Tagline — final copy TBD with Sertac / moodboard direction]</em>
+        </div>
+        <div class="hero-ctas">
+          <button class="btn-primary btn-arrow">Configure</button>
+          <button class="btn-ghost-light btn-arrow">Register for a test ride</button>
         </div>
       </div>
-      <div class="offer">
-        <div class="offer-n">03</div>
-        <div>
-          <div class="offer-title">Build the path</div>
-          <p class="offer-body">
-            Websites, product pages, partner pages, waitlists, reservation paths,
-            configurators, CRM-connected forms, and custom platforms.
-          </p>
-          <p class="offer-outcome">So interest has somewhere clean to go.</p>
+      <div class="hero-scroll">
+        <div class="hero-scroll-line"></div>
+        Scroll
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNOTATION: HERO -->
+  <div class="annotation-bar">
+    <div class="annotation-inner">
+      <span class="annot-tag">Section 01 · Hero</span>
+      <div class="annot-text">
+        <strong>No words until the vehicle has spoken.</strong> Video runs for several seconds before the wordmark fades in. This is the first impression for a visitor who has never heard of ÆMOTION — let the footage do the work. No voiceover, no product description, no claim. The five environments shown in sequence (not stated as a list) establish the range of use before the specs section makes it explicit. Copy appears only after the visual impression is formed.
+        <div class="annot-chips">
+          <span class="annot-chip">Full-bleed video hero</span>
+          <span class="annot-chip">Two CTAs — primary + secondary</span>
+          <span class="annot-chip">Tagline copy to be confirmed</span>
+          <span class="annot-chip">Pre-series footage quality is critical here</span>
         </div>
       </div>
     </div>
-
-    <div class="note"><b>LAYOUT</b> — Each offering maps 1:1 to a problem card cluster above. The bold outcome line is the payoff — keep it visually distinct from the deliverables list.</div>
   </div>
-</section>
 
-<!-- ============ 05 · CLOSING CTA ============ -->
-<section id="s5" class="band band-dark final">
-  <div class="wrap">
-    <div class="smeta">
-      <span class="smeta-num">§ 05</span><span class="smeta-name">Closing CTA</span>
-      <span class="smeta-band">Band — Dark / accent panel</span>
+  <!-- ─── SECTION 02: ENTRY & RIDE ─────────────────────── -->
+  <section class="section section-dark">
+    <div class="placeholder placeholder-dark" style="height:480px;">
+      <div class="placeholder-icon" style="width:52px;height:52px;font-size:22px;">▶</div>
+      <div class="placeholder-text">
+        Entry &amp; ride experience — first-person POV<br>
+        Getting in · Moving off · First corner
+      </div>
+      <div class="placeholder-dim">No voiceover · No copy · No on-screen text · The feeling does the work</div>
     </div>
-    <h2>Got a mobility product that still takes too long to explain?</h2>
-    <p class="lede">
-      Tell us where the story, website, content, or lead path breaks. We'll help
-      you find the right starting point.
-    </p>
-    <div class="btn-row">
-      <a href="#" class="btn">Make the product easier to understand</a>
-      <a href="#" class="btn ghost">Talk to us first</a>
-    </div>
-    <div class="note" style="text-align:left;"><b>OPEN</b> — Two CTAs shown per the outline, but both lead to the same place. Decide before hi-fi: keep one button, or keep both and give them genuinely different destinations (e.g. a form vs. a direct email/call).</div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot-sub">
-      <h3>Stay informed.<br>Subscribe to Charging Stack ⚡</h3>
-      <div class="foot-form">
-        <div class="ph foot-input">Email input</div>
-        <span class="btn" style="cursor:default;">Subscribe</span>
+  <!-- ANNOTATION: ENTRY & RIDE -->
+  <div class="annotation-bar">
+    <div class="annotation-inner">
+      <span class="annot-tag">Section 02 · Entry &amp; Ride</span>
+      <div class="annot-text">
+        <strong>Answers the two most instinctive visitor questions before they appear in copy:</strong> how do you get in, and is it stable? First-person POV removes the need to explain either — the viewer experiences it directly. No voiceover, no copy on screen. The absence of text is intentional and should be preserved in production. This section works because it is not trying to sell anything — it is simply showing the experience.
+        <div class="annot-chips">
+          <span class="annot-chip">First-person POV — no presenter</span>
+          <span class="annot-chip">Resolves stability question visually</span>
+          <span class="annot-chip">Resolves entry question visually</span>
+          <span class="annot-chip">Absolutely no copy or voiceover</span>
+        </div>
       </div>
-    </div>
-    <div class="foot-cols">
-      <div>
-        <h4>Categories</h4>
-        <a href="#">Electric Vehicles</a><a href="#">Micromobility</a>
-        <a href="#">Tech</a><a href="#">Urban Mobility</a>
-      </div>
-      <div>
-        <h4>Information</h4>
-        <a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Sitemap</a>
-      </div>
-      <div>
-        <h4>Charging Stack</h4>
-        <a href="#">About</a><a href="#s1" class="added">Services — new</a><a href="#">Contact</a>
-      </div>
-      <div>
-        <h4>&nbsp;</h4>
-        <div class="foot-social"><div>X</div><div>▶</div><div>in</div><div>◎</div></div>
-      </div>
-    </div>
-    <div class="foot-base">
-      <span>⚡ Charging Stack</span>
-      <span>Copyright © 2026 — Charging Stack</span>
     </div>
   </div>
-</footer>
+
+  <!-- ─── SECTION 03: SPECS + CLAIMS ──────────────────── -->
+  <section class="section section-a">
+    <div class="section-inner">
+      <div class="section-label">
+        <span class="section-num">03</span>
+        Key Specs + Claims
+      </div>
+      <p class="section-lead">The visitor has seen it move. Now give them the numbers to justify what they are already feeling.</p>
+
+      <!-- Specs grid -->
+      <div class="specs-grid">
+        <div class="spec-card">
+          <div class="spec-label">Top speed</div>
+          <div class="spec-value">115 <span class="spec-unit">km/h</span></div>
+          <div class="spec-note">Motorway-capable. No compromise on range of use.</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Range</div>
+          <div class="spec-value">200 <span class="spec-unit">km</span></div>
+          <div class="spec-note">Fixed. Single charge covers the average weekly commute.</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Width</div>
+          <div class="spec-value">79 <span class="spec-unit">cm</span></div>
+          <div class="spec-note">Narrower than a motorbike with panniers. Fits where cars can't.</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Licence required</div>
+          <div class="spec-value" style="font-size:32px; padding-top:6px;">Permis B</div>
+          <div class="spec-note">Standard car licence. No additional qualification needed.</div>
+        </div>
+      </div>
+
+      <!-- Claims row -->
+      <div class="claims-row">
+        <div class="claim-card">
+          <div class="claim-num">150<sub>h/yr</sub></div>
+          <div>
+            <div class="claim-label">Time saved</div>
+            <div class="claim-desc">Almost a full month of working days recovered from traffic. Per year.</div>
+          </div>
+        </div>
+        <div class="claim-card">
+          <div class="claim-num">€3k<sub>/yr</sub></div>
+          <div>
+            <div class="claim-label">Cost saved</div>
+            <div class="claim-desc">vs. running a comparable car. Fuel, parking, maintenance delta.</div>
+          </div>
+        </div>
+        <div class="claim-card">
+          <div class="claim-num">10t</div>
+          <div>
+            <div class="claim-label">CO₂ offset</div>
+            <div class="claim-desc">Over the vehicle lifetime. Calculated against European car fleet average.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Permis B callout + CTA -->
+      <div class="specs-cta">
+        <button class="btn-dark btn-arrow">Configure Deux</button>
+        <div class="specs-permis">
+          <strong>Permis B</strong> — No new licence. If you can drive a car, you can ride Deux.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNOTATION: SPECS -->
+  <div class="annotation-bar">
+    <div class="annotation-inner">
+      <span class="annot-tag">Section 03 · Specs + Claims</span>
+      <div class="annot-text">
+        <strong>Specs appear after two full video sections — not before.</strong> By this point the visitor has seen the vehicle do real things. The numbers now justify a feeling rather than create one. The Permis B point is repeated as a standalone callout here because it removes a perceived barrier that would otherwise slow the decision. No pricing on this page — the €200/month figure lives exclusively in /configure. Claims footnotes (baseline assumptions for the savings figures) need sign-off from ÆMOTION before copy is finalised.
+        <div class="annot-chips">
+          <span class="annot-chip">No pricing shown — lives in /configure only</span>
+          <span class="annot-chip">Claims baseline needs ÆMOTION sign-off</span>
+          <span class="annot-chip">Permis B repeated — barrier removal</span>
+          <span class="annot-chip">CTA inline with specs — warm visitor moment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 04: BATTERY & RANGE ─────────────────── -->
+  <section class="section section-b">
+    <div class="section-inner tight">
+      <div class="section-label">
+        <span class="section-num">04</span>
+        Battery &amp; Range
+      </div>
+      <div class="battery-grid">
+        <div class="placeholder" style="height:300px; border-radius:8px;">
+          <div class="placeholder-icon">⚡</div>
+          <div class="placeholder-text">Battery visual<br>Range diagram or animation</div>
+          <div class="placeholder-dim">TBC — static illustration or motion graphic</div>
+        </div>
+        <div class="battery-facts">
+          <div class="battery-fact">
+            <div class="battery-fact-label">Range</div>
+            <div class="battery-fact-value">200 km per charge. Fixed battery. Designed for the daily commute plus margin.</div>
+          </div>
+          <div class="battery-fact">
+            <div class="battery-fact-label">Charging</div>
+            <div class="battery-fact-value">Standard domestic socket. Full charge overnight. [Charge time TBC — confirm with ÆMOTION]</div>
+          </div>
+          <div class="battery-fact">
+            <div class="battery-fact-label">Swap network</div>
+            <div class="battery-fact-value">Battery swap points available outside your home base. [Network coverage map / details TBC]</div>
+          </div>
+          <div class="battery-fact">
+            <div class="battery-fact-label">App</div>
+            <div class="battery-fact-value">[App status and features TBC — confirm with ÆMOTION before publishing]</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNOTATION: BATTERY -->
+  <div class="annotation-bar">
+    <div class="annotation-inner">
+      <span class="annot-tag">Section 04 · Battery &amp; Range</span>
+      <div class="annot-text">
+        <strong>Answers the support network question directly</strong> — where do I swap batteries outside my base? This was flagged in the consultation as a top visitor question. The section should feel informational and honest rather than promotional. Two items are currently placeholders pending ÆMOTION confirmation: the battery swap network coverage, and whether an app exists and what it does. These must be confirmed before this section can be written to final copy.
+        <div class="annot-chips">
+          <span class="annot-chip">Swap network details needed from ÆMOTION</span>
+          <span class="annot-chip">App existence + features TBC</span>
+          <span class="annot-chip">Charge time confirmation needed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 05: USE CASE REEL ────────────────────── -->
+  <section class="section section-a">
+    <div class="section-inner tight">
+      <div class="section-label">
+        <span class="section-num">05</span>
+        Use Case Reel
+      </div>
+      <p class="section-lead">The environment comes first. Deux arrives into it — not the other way around.</p>
+      <div class="use-case-grid">
+        <div class="use-case-item">
+          <div class="placeholder" style="height:200px; border-radius:6px;">
+            <div class="placeholder-icon" style="font-size:14px;">▶</div>
+            <div class="placeholder-text" style="font-size:10px;">6 sec clip</div>
+          </div>
+          <div class="use-case-label">Morning commute</div>
+        </div>
+        <div class="use-case-item">
+          <div class="placeholder" style="height:200px; border-radius:6px;">
+            <div class="placeholder-icon" style="font-size:14px;">▶</div>
+            <div class="placeholder-text" style="font-size:10px;">6 sec clip</div>
+          </div>
+          <div class="use-case-label">Tight city street</div>
+        </div>
+        <div class="use-case-item">
+          <div class="placeholder" style="height:200px; border-radius:6px;">
+            <div class="placeholder-icon" style="font-size:14px;">▶</div>
+            <div class="placeholder-text" style="font-size:10px;">6 sec clip</div>
+          </div>
+          <div class="use-case-label">Open road</div>
+        </div>
+        <div class="use-case-item">
+          <div class="placeholder" style="height:200px; border-radius:6px;">
+            <div class="placeholder-icon" style="font-size:14px;">▶</div>
+            <div class="placeholder-text" style="font-size:10px;">6 sec clip</div>
+          </div>
+          <div class="use-case-label">Field site</div>
+        </div>
+        <div class="use-case-item">
+          <div class="placeholder" style="height:200px; border-radius:6px;">
+            <div class="placeholder-icon" style="font-size:14px;">▶</div>
+            <div class="placeholder-text" style="font-size:10px;">6 sec clip</div>
+          </div>
+          <div class="use-case-label">Delivery bay</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNOTATION: USE CASE REEL -->
+  <div class="annotation-bar">
+    <div class="annotation-inner">
+      <span class="annot-tag">Section 05 · Use Case Reel</span>
+      <div class="annot-text">
+        <strong>Solo rider in every clip — no passenger.</strong> Survey data confirmed the pre-order profile uses the second seat for storage. Showing a passenger would misrepresent how the actual buyer intends to use the vehicle. Each clip is environment-first: the location is established before Deux enters the frame. Clips are deliberately short — 6 seconds each — to hold attention across the full reel. The suburban-to-urban range of environments reflects the confirmed audience (suburban resident commuting into a city).
+        <div class="annot-chips">
+          <span class="annot-chip">Solo rider only — no passenger</span>
+          <span class="annot-chip">Suburban + urban context mix</span>
+          <span class="annot-chip">6 sec per clip — no longer</span>
+          <span class="annot-chip">Environment shown before vehicle arrives</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 06: OWNERSHIP REALITY ───────────────── -->
+  <section class="section section-b">
+    <div class="section-inner">
+      <div class="section-label">
+        <span class="section-num">06</span>
+        Ownership Reality
+      </div>
+      <h2 class="section-title">What owning one actually looks like.</h2>
+      <p class="section-lead">Honest and short. The kind of thing a friend who owns one would tell you over coffee.</p>
+      <div class="ownership-grid">
+        <div class="ownership-card">
+          <div class="ownership-heading">
+            <span class="ownership-icon">🧹</span>
+            Cleaning
+          </div>
+          <div class="ownership-body">
+            [How cleaning works — wipe-down exterior, sealed components, no specialist equipment required. Copy TBC with ÆMOTION.] Placeholder text representing honest, brief ownership information.
+          </div>
+          <span class="ownership-link">See full care guide →</span>
+        </div>
+        <div class="ownership-card">
+          <div class="ownership-heading">
+            <span class="ownership-icon">🔧</span>
+            Maintenance
+          </div>
+          <div class="ownership-body">
+            [Scheduled maintenance cadence, what is covered in the subscription, what requires a service visit. Copy TBC with ÆMOTION.] No surprises, no specialist workshops needed.
+          </div>
+          <span class="ownership-link">Maintenance schedule →</span>
+        </div>
+        <div class="ownership-card">
+          <div class="ownership-heading">
+            <span class="ownership-icon">📍</span>
+            Support network
+          </div>
+          <div class="ownership-body">
+            [Where to go for battery swaps, service, and roadside support outside your home base. Coverage map or list of locations. Copy TBC with ÆMOTION.]
+          </div>
+          <span class="ownership-link">Find support near you →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNOTATION: OWNERSHIP REALITY -->
+  <div class="annotation-bar">
+    <div class="annotation-inner">
+      <span class="annot-tag">Section 06 · Ownership Reality</span>
+      <div class="annot-text">
+        <strong>Converts potential objection into trust signal.</strong> All three visitor questions surfaced in the consultation (cleaning, maintenance, support network) are addressed here in one section, before the visitor has to search for them. The tone must be genuinely honest and short — not a sales pitch. Presenting this before the social proof section means the visitor arrives at the IG feed with their practical questions already answered, allowing the emotional response to land more cleanly. All copy in this section requires ÆMOTION sign-off on accuracy.
+        <div class="annot-chips">
+          <span class="annot-chip">All three content areas need ÆMOTION input</span>
+          <span class="annot-chip">Tone: honest, brief, friend-to-friend</span>
+          <span class="annot-chip">Placed before social proof — objection cleared first</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 07: IG SOCIAL PROOF ──────────────────── -->
+  <section class="section section-a">
+    <div class="section-inner">
+      <div class="section-label">
+        <span class="section-num">07</span>
+        Social Proof
+      </div>
+      <div class="ig-header">
+        <div>
+          <div class="ig-handle"><span class="ig-handle-at">@</span>aemotion</div>
+          <div class="section-lead" style="margin-bottom:0; margin-top:8px;">Real people on real streets.</div>
+        </div>
+        <div class="ig-caption">
+          The best answer to "how will I look in this" is watching someone else look good in it.
+        </div>
+      </div>
+      <div class="ig-grid">
+        <div class="ig-item"><div class="placeholder" style="min-height:160px; border-radius:3px;"><div class="placeholder-text" style="font-size:9px;">IG post</div></div></div>
+        <div class="ig-item"><div class="placeholder" style="min-height:160px; border-radius:3px;"><div class="placeholder-text" style="font-size:9px;">IG post</div></div></div>
+        <div class="ig-item"><div class="placeholder" style="min-height:160px; border-radius:3px;"><div class="placeholder-text" style="font-size:9px;">IG post</div></div></div>
+        <div class="ig-item"><div class="placeholder" style="min-height:160px; border-radius:3px;"><div class="placeholder-text" style="font-size:9px;">IG post</div></div></div>
+        <div class="ig-item"><div class="placeholder" style="min-height:160px; border-radius:3px;"><div class="placeholder-text" style="font-size:9px;">IG post</div></div></div>
+        <div class="ig-item"><div class="placeholder" style="min-height:160px; border-radius:3px;"><div class="placeholder-text" style="font-size:9px;">IG post</div></div></div>
+      </div>
+      <div class="ig-cta">
+        <span class="ig-cta-text">See more on Instagram</span>
+        <button class="btn-outline-dark">Follow @aemotion →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNOTATION: IG SOCIAL PROOF -->
+  <div class="annotation-bar">
+    <div class="annotation-inner">
+      <span class="annot-tag">Section 07 · IG Social Proof</span>
+      <div class="annot-text">
+        <strong>Answers the optics question peer-to-peer, not brand-to-buyer.</strong> The confirmed pre-order profile cares about how others perceive them. A grid of real people on real streets does more work here than any brand claim. Feed should be curated to show solo riders (matching the storage-not-passenger reality), diverse urban environments, and men in the 40+ bracket where possible. Placement at section 07, after practical questions are resolved, means this section lands as aspiration rather than distraction. Requires live IG embed or curated static selection — feed embed method to be confirmed.
+        <div class="annot-chips">
+          <span class="annot-chip">Curate for solo riders</span>
+          <span class="annot-chip">Show 40+ male profile where possible</span>
+          <span class="annot-chip">IG embed method TBC</span>
+          <span class="annot-chip">Confirms confirmed channel is Instagram</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 08: PRIMARY CTA BLOCK ────────────────── -->
+  <section class="section section-dark">
+    <div class="section-inner" style="text-align:center;">
+      <div class="section-label-dark" style="justify-content:center;">
+        <span class="section-num-dark">08</span>
+        Primary CTA Block
+      </div>
+      <div class="cta-block-headline">Ready to make it yours?</div>
+      <div class="cta-block-sub">Series production from 2027. Pre-order opens now. First come, first delivered.</div>
+
+      <div class="cta-block-grid">
+        <div class="cta-block-item primary">
+          <div class="cta-block-item-label">Best choice for most visitors</div>
+          <div style="font-size:16px; font-weight:500; color:var(--ink); margin:4px 0;">Configure Deux</div>
+          <div style="font-size:13px; color:var(--ink-3); margin-bottom:8px;">Choose your colour. Secure your place in the first series.</div>
+          <button class="cta-block-item-btn" style="background:var(--ink);color:#fff;border-color:var(--ink);">Configure → </button>
+        </div>
+        <div class="cta-block-item">
+          <div class="cta-block-item-label">Pre-order confirmed</div>
+          <div style="font-size:15px; font-weight:500; color:#fff; margin:4px 0;">Reserve yours</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:8px;">Skip configuration. Reserve your first-series unit directly.</div>
+          <button class="cta-block-item-btn">Reserve yours →</button>
+        </div>
+        <div class="cta-block-item">
+          <div class="cta-block-item-label">Not ready to commit</div>
+          <div style="font-size:15px; font-weight:500; color:#fff; margin:4px 0;">Test ride</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:8px;">Register to experience it before deciding.</div>
+          <button class="cta-block-item-btn">Register for a test ride →</button>
+        </div>
+        <div class="cta-block-item">
+          <div class="cta-block-item-label">Managing a fleet</div>
+          <div style="font-size:15px; font-weight:500; color:#fff; margin:4px 0;">Fleet enquiry</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:8px;">B2B and field professional rates. Direct contact.</div>
+          <button class="cta-block-item-btn">Request a quote →</button>
+        </div>
+      </div>
+      <div class="cta-block-note">
+        Pre-series production Q3 2026 · First series units 2027 · Made in France
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNOTATION: CTA BLOCK -->
+  <div class="annotation-bar">
+    <div class="annotation-inner">
+      <span class="annot-tag">Section 08 · CTA Block</span>
+      <div class="annot-text">
+        <strong>All four CTA paths presented, with hierarchy made visually explicit.</strong> Configure is primary (white card, darkest button). Reserve yours, test ride, and fleet enquiry are secondary — same dark section, lighter treatment. This structure serves the full audience in one section without any path feeling secondary or hidden. The production timeline note at the base ("Pre-series Q3 2026 · First series 2027") addresses the "when do I get it?" question at the moment of highest conversion intent. Configure and Reserve yours wording may need to be confirmed once the deposit flow is finalised.
+        <div class="annot-chips">
+          <span class="annot-chip">Configure is primary — visual hierarchy confirms this</span>
+          <span class="annot-chip">Reserve yours — deposit amount TBC</span>
+          <span class="annot-chip">Fleet CTA routes to /fleet — not a generic form</span>
+          <span class="annot-chip">Timeline stated plainly at bottom</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-logo">ÆMOTION</div>
+    <div class="footer-links">
+      <span class="footer-link">Configure</span>
+      <span class="footer-link">Why ÆMOTION</span>
+      <span class="footer-link">Fleet &amp; B2B</span>
+      <span class="footer-link">Our Story</span>
+      <span class="footer-link">Community</span>
+      <span class="footer-link">Press</span>
+    </div>
+    <div class="footer-placeholder">Footer links TBC</div>
+    <div class="footer-legal">© 2026 ÆMOTION · Made in France · Legal · Privacy</div>
+  </footer>
+
+</div>
+<!-- /site-wrapper -->
+
+</body>
+</html>
